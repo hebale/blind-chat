@@ -1,0 +1,16 @@
+# Folder
+/node_modules/
+
+# VSCode project files
+.vscode
+
+# IntelliJ project files
+.idea
+*.imi
+/.idea/
+
+# Log file
+*.log
+
+.DS_Store
+package-lock.json
