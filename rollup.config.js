@@ -46,7 +46,7 @@ export default {
 		scss({ fileName: 'bundle.css'}),
 		copy({
       targets: [
-        { src: 'src/assets/font/*', dest: '/public/build' }
+        { src: 'src/assets/font/*', dest: 'public/build' }
       ]
     }),
 		resolve({

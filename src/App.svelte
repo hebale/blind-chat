@@ -19,8 +19,6 @@
 	$: admin = false;
 	$: news = false;
 
-	
-
 	COMMENTS.subscribe((arr) => comments = arr);
 	TAGS.subscribe((arr) => tags = arr);
 	SORTS.subscribe((arr) => sorts = arr);
@@ -49,8 +47,19 @@
 		title = tags[tagCount];
 		onload = true;
 
+		setTimeout(() => {
+			Core.scrollAnimation("main ul", "main ul > li:last-child");
+		}, 300)
 		// reloadComments();
 	});
+
+
+	const appHeight = () => {
+    const doc = document.documentElement
+			doc.style.setProperty('--app-height', `${window.innerHeight}px`)
+	}
+	window.addEventListener('resize', appHeight)
+	appHeight()
 
 	const adminCommand = (delay) => {
 		let timer;
