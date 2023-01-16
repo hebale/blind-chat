@@ -1752,8 +1752,8 @@ var app = (function () {
     			input = element("input");
     			t = text("\n\t\t\t\t\t나의 글");
     			attr_dev(input, "type", "checkbox");
-    			add_location(input, file, 151, 5, 3404);
-    			add_location(label, file, 150, 4, 3391);
+    			add_location(input, file, 151, 5, 3405);
+    			add_location(label, file, 150, 4, 3392);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, label, anchor);
@@ -1802,8 +1802,8 @@ var app = (function () {
     			input = element("input");
     			t = text("\n\t\t\t\t\t나의 글");
     			attr_dev(input, "type", "checkbox");
-    			add_location(input, file, 143, 5, 3286);
-    			add_location(label, file, 142, 4, 3273);
+    			add_location(input, file, 143, 5, 3287);
+    			add_location(label, file, 142, 4, 3274);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, label, anchor);
@@ -1904,7 +1904,7 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			add_location(nav, file, 162, 4, 3580);
+    			add_location(nav, file, 162, 4, 3581);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, nav, anchor);
@@ -1978,8 +1978,8 @@ var app = (function () {
     			attr_dev(input, "type", "checkbox");
     			input.value = input_value_value = /*sort*/ ctx[24];
     			input.checked = input_checked_value = /*filter*/ ctx[1][/*sort*/ ctx[24]];
-    			add_location(input, file, 165, 7, 3637);
-    			add_location(label, file, 164, 6, 3622);
+    			add_location(input, file, 165, 7, 3638);
+    			add_location(label, file, 164, 6, 3623);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, label, anchor);
@@ -2128,7 +2128,7 @@ var app = (function () {
     			button = element("button");
     			button.textContent = "새로운 코멘트";
     			attr_dev(button, "type", "button");
-    			add_location(button, file, 186, 5, 3975);
+    			add_location(button, file, 186, 5, 3976);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -2278,16 +2278,16 @@ var app = (function () {
     			t7 = space();
     			create_component(inputform.$$.fragment);
     			attr_dev(a, "href", "http://digitest.hankookilbo.com/others/workshop/");
-    			add_location(a, file, 136, 2, 3095);
+    			add_location(a, file, 136, 2, 3096);
     			attr_dev(button, "type", "button");
-    			add_location(button, file, 138, 3, 3171);
-    			add_location(h1, file, 137, 2, 3163);
-    			add_location(header, file, 135, 1, 3084);
-    			add_location(section, file, 183, 2, 3930);
-    			add_location(main, file, 178, 1, 3846);
+    			add_location(button, file, 138, 3, 3172);
+    			add_location(h1, file, 137, 2, 3164);
+    			add_location(header, file, 135, 1, 3085);
+    			add_location(section, file, 183, 2, 3931);
+    			add_location(main, file, 178, 1, 3847);
     			attr_dev(div, "id", "app");
     			attr_dev(div, "class", div_class_value = "" + ((/*onload*/ ctx[5] ? "onload" : "") + " " + (/*admin*/ ctx[6] ? 'admin' : '')));
-    			add_location(div, file, 134, 0, 3012);
+    			add_location(div, file, 134, 0, 3013);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
