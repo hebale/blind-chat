@@ -2,7 +2,7 @@
   import { get } from "svelte/store";
 
   import * as Core from '../assets/js/core';
-  import { URL, UUID, FILTER, SORTS, COMMENTS, EDITDATA } from '../assets/js/store';
+  import { URL, UUID, TAGS, FILTER, SORTS, COMMENTS, EDITDATA } from '../assets/js/store';
 
   export let sorts;
   export let tagCount;
@@ -20,9 +20,10 @@
 		CONTENTS: '',
 	};
 
+  
   const clickSendComment = () => {
-		if(!formData.CONTENTS) return;
-
+    if(!formData.CONTENTS) return;
+    
     let comment = { ...formData, TAG: filter.TAG, TIMESTAMP: Core.dateSet() };
     let queries = Object.keys(comment).map(el => `${el}=${comment[el].replace("&", "AND")}`).join("&");
 
@@ -32,7 +33,7 @@
         SORTS.set(data.sort);
       })
     );
-    
+
     comment.UUID = get(UUID);
     comment.PENDING = "Y";
 		comments = comments.concat(comment);
@@ -96,6 +97,11 @@
 
     formData.CONTENTS = "";
   }
+  const countComments = sort => {
+    return comments.filter(el => {
+      return el.TAG === get(TAGS)[tagCount] && el.SORT === sort
+    }).length
+  }
 
 </script>
 
@@ -121,7 +127,9 @@
               {/if}
             {/key}
             {sort}
-            <span>({comments.filter(el => el.SORT == sort).length})</span>
+            {#key comments}
+              <span>{countComments(sort)}</span>
+            {/key}
           </label> 
         {/each}
       {/key}

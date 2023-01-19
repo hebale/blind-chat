@@ -44,7 +44,8 @@ $editLight: #fff;
       }
       h1 {
         position: relative;
-        font-size: 16px;
+        font-size: 15px;
+        letter-spacing: 0.05em;
         user-select: none;
         -webkit-user-select: none;
         &:before {
@@ -62,7 +63,7 @@ $editLight: #fff;
   }
   &.admin {
     main ul {
-      padding-top: 84px;
+      padding-top: 70px;
       & > li.blind h2 {
         background-image: none;
         color: $darkColor;
@@ -82,18 +83,30 @@ $editLight: #fff;
     height: 100%;
     border: 1px solid $darkColor;
     border-top-width: 0;
-    background: #fff;
+    background: $lightColor;
     transform: translateX(-50%);
     justify-content: center;
     align-items: center;
-    transition: height 550ms;
+    transition: height 750ms;
+    &:after {
+      content: "";
+      z-index: 8;
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: $lightColor;
+    }
     > a {
       display: none;
+      z-index: 9;
       position: absolute;
       top: 50%;
       left: 16px;
-      padding: 4px 12px;
-      font-size: 12px;
+      padding: 6px 10px;
+      font-size: 13px;
       font-weight: 600;
       border: 1px solid $darkColor;
       border-radius: 2px;
@@ -103,6 +116,8 @@ $editLight: #fff;
       transform: translateY(-50%);
     }
     h1 {
+      z-index: 9;
+      position: realtive;
       margin: 0;
       font-size: 0;
       font-weight: 500;
@@ -119,7 +134,7 @@ $editLight: #fff;
       button {
         position: relative;
         margin: 0;
-        padding: 0 14px 0 0;
+        padding: 0 12px 0 0;
         font-weight: 600;
         border: none;
         color: $darkColor;
@@ -133,21 +148,22 @@ $editLight: #fff;
           right: 0;
           width: 0;
           height: 0;
-          border-width: 4px;
+          border-width: 3px;
           border-style: solid;
         }
         &:before {
-          top: 0;
+          top: 2px;
           border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) $darkColor;
         }
         &:after {
-          bottom: 0;
+          bottom: 2px;
           border-color: $darkColor rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
         }
       }
     }
     > label {
       display: none;
+      z-index: 9;
       position: absolute;
       top: 50%;
       right: 16px;
@@ -172,19 +188,19 @@ $editLight: #fff;
       }
     }
     nav {
-      z-index: 9;
+      z-index: 7;
       position: absolute;
-      top: 54px;
+      top: 56px;
       left: 0;
       right: 0;
       padding: 6px 20px;
-      margin: -8px 0 0 -8px;
+      margin: -10px 0 0 -10px;
       text-align: center;
       label {
         display: inline-block;
         padding: 4px 8px;
-        margin: 8px 0 0 8px;
-        font-size: 12px;
+        margin: 10px 0 0 10px;
+        font-size: 13px;
         color: $darkColor;
         border: 1px solid $darkColor;
         background: $lightColor;
@@ -220,7 +236,7 @@ $editLight: #fff;
     background: #f5f5f5;
     ul {
       position: relative;
-      padding: 50px 0 80px;
+      padding: 40px 0 80px;
       // padding: 50px 0 280px;
       margin: 0;
       height: 100%;
@@ -286,7 +302,7 @@ $editLight: #fff;
           position: absolute;
           right: 0;
           bottom: -22px;
-          padding: 0 12px;
+          padding: 0 6px;
           font-size: 11px;
           font-weight: 500;
           color: $darkColor;
@@ -400,12 +416,12 @@ $editLight: #fff;
               margin: 0 0 0 16px;
               padding: 6px 0;
               font-size: 14px;
-              font-weight: 500;
+              font-weight: 550;
               align-items: center;
               input {
                 display: inline-block;
                 padding: 0;
-                margin: 0 3px 0 0;
+                margin: 0 5px 0 0;
                 width: 10px;
                 height: 10px;
                 border: 1px solid $darkColor;
@@ -419,9 +435,24 @@ $editLight: #fff;
               }
               span {
                 display: inline-block;
-                margin-left: 4px;
-                font-size: 14px;
+                margin-left: 2px;
+                line-height: 20px;
+                font-size: 13px;
                 font-weight: 500;
+                &:before,
+                &:after {
+                  display: inline-block;
+                  font-weight: 200;
+                  transform: translateY(-1px);
+                }
+                &:before {
+                  content: "(";
+                  margin-right: 1px;
+                }
+                &:after {
+                  content: ")";
+                  margin-left: 1px;
+                }
               }
             }
           }

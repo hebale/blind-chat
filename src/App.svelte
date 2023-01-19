@@ -36,8 +36,11 @@
 		SORTS.set(data.sort);
 		FILTER.update((obj) => {
 			let newObj = {};
-			data.sort.forEach((el) => newObj[el] = true );
+			
 			newObj.TAG = data.tag[0];
+			newObj.SORT = data.sort.map(el => {
+				return el.map(innerEl => true)
+			});
 
 			return {...obj, ...newObj}
 		});
@@ -60,7 +63,6 @@
 	}
 	window.addEventListener('resize', appHeight)
 	
-
 	const adminCommand = (delay) => {
 		let timer;
 		// let count = 0;
@@ -102,18 +104,24 @@
   const commentSort = (arr) => {
 		if(filter.MINE) arr = arr.filter(el => el.UUID === get(UUID));
 		arr = arr.filter(el => el.TAG === tags[tagCount]);
-		return arr.filter(el => filter[el.SORT]);
+
+		return arr.filter(el => {
+			let index = sorts[tagCount].indexOf(el.SORT);
+
+			return index > -1 && filter.SORT[tagCount][index];
+		});
 	};
 
 	const mineComment = (event) => {
 		FILTER.update((obj) => ({ ...obj, MINE : event.target.checked }));
 	};
 
-	const changeFilter = (event) => {
+	const changeFilter = (event, index) => {
 		FILTER.update((obj) => {
-			obj[event.target.value] = event.target.checked;
-			return obj
-		})
+			obj.SORT[tagCount][index] = event.target.checked;
+			obj.UPDATE = new Date();
+			return obj;
+		});
 	};
 
 	const reloadComments = () => {
@@ -129,7 +137,6 @@
 		news = false;
 		Core.scrollAnimation("main ul", "main ul > li:last-child");
 	};
-
 </script>
 
 <div id="app" class="{onload ? "onload" : ""} {admin ? 'admin' : ''}">
@@ -166,8 +173,8 @@
 							<input
 								type="checkbox"
 								value={sort}
-								on:change={changeFilter}
-								checked={filter[sort]}
+								on:change={event => changeFilter(event, i)}
+								checked={filter.SORT[tagCount][i]}
 							>
 							{sort}
 						</label>

@@ -5,6 +5,8 @@ export function uuidv4() {
 };
 
 export function scrollAnimation(container, target) {
+  if(!document.querySelector(target)) return;
+  
   document.querySelector(container).scrollTo({
     top: document.querySelector(target).offsetTop + 200,
     behavior: "smooth"
