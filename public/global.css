@@ -6,8 +6,11 @@ html, body {
 	position: relative;
 	width: 100vw;
 	height: 100vh;
+	/* min-height: -webkit-fill-available; */
 	overflow: hidden;
-	@media not all and (hover:hover) {
+}
+@media (hover: none) and (pointer: coarse) {
+	html, body {
 		height: var(--app-height);
 	}
 }

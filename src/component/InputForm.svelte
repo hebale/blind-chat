@@ -5,6 +5,7 @@
   import { URL, UUID, FILTER, SORTS, COMMENTS, EDITDATA } from '../assets/js/store';
 
   export let sorts;
+  export let tagCount;
   export let comments;
   
   let editData;
@@ -15,7 +16,7 @@
   
   let formData = {
     TAG: null,
-		SORT: '기타',
+		SORT: 'ETC',
 		CONTENTS: '',
 	};
 
@@ -23,7 +24,7 @@
 		if(!formData.CONTENTS) return;
 
     let comment = { ...formData, TAG: filter.TAG, TIMESTAMP: Core.dateSet() };
-    let queries = Object.keys(comment).map(el => `${el}=${comment[el]}`).join("&");
+    let queries = Object.keys(comment).map(el => `${el}=${comment[el].replace("&", "AND")}`).join("&");
 
     Core.postComments(get(URL), queries, () =>
       Core.getComments(get(URL), (data) => {
@@ -100,29 +101,31 @@
 
 <form class="{editData.KEY ? "edit" : ""}">
   <div>
-    {#key sorts}
-      {#each sorts as sort, i}
-        <label>
-          {#key editData}
-            {#if editData.KEY}
-              <input
-                type="radio"
-                value={sort}
-                bind:group={editData.SORT}
-              >
-            {:else}
-              <input
-                type="radio"
-                value={sort}
-                bind:group={formData.SORT}
-              >
-            {/if}
-          {/key}
-          {sort}
-          <span>{comments.filter(el => el.SORT == sort).length}</span>
-        </label> 
-      {/each}
-    {/key}
+    {#if sorts.length > 0}
+      {#key sorts}
+        {#each sorts[tagCount] as sort, i}
+          <label>
+            {#key editData}
+              {#if editData.KEY}
+                <input
+                  type="radio"
+                  value={sort}
+                  bind:group={editData.SORT}
+                >
+              {:else}
+                <input
+                  type="radio"
+                  value={sort}
+                  bind:group={formData.SORT}
+                >
+              {/if}
+            {/key}
+            {sort}
+            <span>({comments.filter(el => el.SORT == sort).length})</span>
+          </label> 
+        {/each}
+      {/key}
+    {/if}
   </div>	
   <div>
     {#if editData.KEY}

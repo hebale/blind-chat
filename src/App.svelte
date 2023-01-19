@@ -10,23 +10,22 @@
 	let mode = "basic";
 	let tagCount = 0;
 	let adminCount = 0;
-	let comments, filter, tags;
-	let sorts = [];
+	let comments, filter, tags;	
 	let newsComment;
 
 	$: title = "TITLE";
 	$: onload = false;
 	$: admin = false;
 	$: news = false;
+	$: sorts = [];
 
 	COMMENTS.subscribe((arr) => comments = arr);
-	TAGS.subscribe((arr) => tags = arr);
+	TAGS.subscribe((arr) => tags = arr.map(el => el.replace("AND", "&")));
 	SORTS.subscribe((arr) => sorts = arr);
 	FILTER.subscribe((obj) => filter = obj);
 
 	// init
 	if(!Core.getCookie("uuid")) Core.setCookie("uuid", Core.uuidv4(), 30);
-	UUID.se
 
 	const vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -47,6 +46,8 @@
 		title = tags[tagCount];
 		onload = true;
 
+		appHeight();
+		
 		setTimeout(() => {
 			Core.scrollAnimation("main ul", "main ul > li:last-child");
 		}, 300)
@@ -58,7 +59,6 @@
 			doc.style.setProperty('--app-height', `${window.innerHeight}px`)
 	}
 	window.addEventListener('resize', appHeight)
-	appHeight()
 	
 
 	const adminCommand = (delay) => {
@@ -161,7 +161,7 @@
 		{#key admin}
 			{#if admin}
 				<nav>
-					{#each sorts as sort, i}
+					{#each sorts[tagCount] as sort, i}
 						<label>
 							<input
 								type="checkbox"
@@ -187,7 +187,7 @@
 					<button type="button" on:click={checkNewComment}>새로운 코멘트</button>
 				{/if}
 			{/key}
-			<InputForm bind:comments={comments} bind:sorts={sorts} />
+			<InputForm bind:comments={comments} bind:tagCount={tagCount} bind:sorts={sorts} />
 		</section>
 	</main>
 </div>

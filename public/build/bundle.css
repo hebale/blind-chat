@@ -352,11 +352,11 @@
   transform: translateX(-50%);
 }
 #app main section form {
-  padding: 12px 16px 26px;
+  padding: 6px 16px 20px;
   background: #ccc;
 }
 #app main section form > div:first-child {
-  padding-bottom: 12px;
+  padding-bottom: 8px;
   margin: 0 0 0 -16px;
 }
 #app main section form > div:first-child label {
@@ -402,10 +402,10 @@
   background: #555;
 }
 #app main section form textarea {
-  padding: 7px 14px;
+  padding: 6px 12px;
   margin: 0;
   width: 100%;
-  min-height: 92px;
+  min-height: 72px;
   border: 1px solid #111;
   border-radius: 0;
   font-family: "Pretendard Variable";
@@ -415,7 +415,7 @@
 #app main section form button {
   padding: 0 20px;
   margin: 0;
-  min-height: 42px;
+  min-height: 32px;
   min-width: 80px;
   font-weight: 500;
   border: 1px solid #111;
