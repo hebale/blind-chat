@@ -201,7 +201,7 @@
 					<button type="button" on:click={checkNewComment}>새로운 코멘트</button>
 				{/if}
 			{/key}
-			<InputForm bind:comments={comments} bind:tagCount={tagCount} bind:sorts={sorts} />
+			<InputForm bind:comments={comments} bind:tagIndex={tagCount} bind:sorts={sorts} />
 		</section>
 	</main>
 </div>

@@ -32,7 +32,13 @@ export function getComments(url, callback) {
     });
 };
 
-export function postComments(url, queries, callback) {
+export function postComments(url, params, callback) {
+  let queries = Object.keys(params).map(el => {
+      return typeof params[el] === "number"
+        ? `${el}=${params[el]}`
+        : `${el}=${params[el].replace(/\n/g, "<br>").replace(/&/g, "AND")}`
+    }).join("&");
+
   fetch(url + `&${queries}`, { method: "POST"})
   .then((response) => {
     if(response.status === 200) callback(response);

@@ -1,7 +1,7 @@
 <script>
   import { get } from "svelte/store";
   
-  import { UUID, EDITDATA } from '../assets/js/store';
+  import { UUID, EDITDATA, EDIT } from '../assets/js/store';
   
   export let comments;
 
@@ -9,16 +9,18 @@
 
   EDITDATA.subscribe((obj) => editData = obj);
 
-  const changeMode = (key) => {
+  const onChangeMode = (key) => {
     const selected = comments.filter(el => el.KEY === key)[0];
 
-    if(get(EDITDATA).KEY === key){
+    if(get(EDIT)){
+      EDIT.set(false);
       EDITDATA.update((obj) => ({
         KEY: null,
         SORT: null,
         CONTENTS: null,
       }));
     }else{
+      EDIT.set(true);
       EDITDATA.update((obj) => ({
         KEY: selected.KEY,
         SORT: selected.SORT,
@@ -42,7 +44,7 @@
           <h2>{@html comment.CONTENTS}</h2> 
           <span>{comment.TIMESTAMP}</span>
           {#if !comment.PENDING && comment.UUID === get(UUID)  }
-            <button type="button" on:click={() => changeMode(comment.KEY)}>옵션</button>
+            <button type="button" on:click={() => onChangeMode(comment.KEY)}>옵션</button>
           {/if}
         </div>
       </li>
