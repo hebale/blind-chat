@@ -19,8 +19,13 @@
 	$: news = false;
 	$: sorts = [];
 
-	COMMENTS.subscribe((arr) => comments = arr);
-	TAGS.subscribe((arr) => tags = arr.map(el => el.replace("AND", "&")));
+	COMMENTS.subscribe((arr) => {
+		comments = arr.map(el => {
+			el.CONTENTS = el.CONTENTS.replace(/AND/, "&");
+			return el;
+		});
+	});
+	TAGS.subscribe((arr) => tags = arr.map(el => el.replace(/AND/, "&")));
 	SORTS.subscribe((arr) => sorts = arr);
 	FILTER.subscribe((obj) => filter = obj);
 
@@ -102,13 +107,13 @@
 	};
 
   const commentSort = (arr) => {
-		if(filter.MINE) arr = arr.filter(el => el.UUID === get(UUID));
+		if(filter.MINE) arr = arr.filter(el => el.UUID === get(UUID) || el.SORT === "관리자");
 		arr = arr.filter(el => el.TAG === tags[tagCount]);
 
 		return arr.filter(el => {
 			let index = sorts[tagCount].indexOf(el.SORT);
 
-			return index > -1 && filter.SORT[tagCount][index];
+			return index > -1 && (filter.SORT[tagCount][index] || el.SORT === "관리자" );
 		});
 	};
 
@@ -169,15 +174,17 @@
 			{#if admin}
 				<nav>
 					{#each sorts[tagCount] as sort, i}
-						<label>
-							<input
-								type="checkbox"
-								value={sort}
-								on:change={event => changeFilter(event, i)}
-								checked={filter.SORT[tagCount][i]}
-							>
-							{sort}
-						</label>
+						{#if sort !== "관리자"}
+							<label>
+								<input
+									type="checkbox"
+									value={sort}
+									on:change={event => changeFilter(event, i)}
+									checked={filter.SORT[tagCount][i]}
+								>
+								{sort}
+							</label>
+						{/if}
 					{/each}
 					</nav>
 			{/if}

@@ -22,7 +22,7 @@
       EDITDATA.update((obj) => ({
         KEY: selected.KEY,
         SORT: selected.SORT,
-        CONTENTS: selected.CONTENTS,
+        CONTENTS: selected.CONTENTS.replace(/<br>/g, "\n"),
       }));
     }
   };
@@ -39,7 +39,7 @@
       >
         <div>
           <p>{comment.SORT}</p>
-          <h2>{comment.CONTENTS}</h2> 
+          <h2>{@html comment.CONTENTS}</h2> 
           <span>{comment.TIMESTAMP}</span>
           {#if !comment.PENDING && comment.UUID === get(UUID)  }
             <button type="button" on:click={() => changeMode(comment.KEY)}>옵션</button>

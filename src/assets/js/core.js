@@ -36,7 +36,7 @@ export function postComments(url, queries, callback) {
   fetch(url + `&${queries}`, { method: "POST"})
   .then((response) => {
     if(response.status === 200) callback(response);
-  });
+  })
 };
 
 export function dateSet(dataString){

@@ -24,8 +24,14 @@
   const clickSendComment = () => {
     if(!formData.CONTENTS) return;
     
-    let comment = { ...formData, TAG: filter.TAG, TIMESTAMP: Core.dateSet() };
-    let queries = Object.keys(comment).map(el => `${el}=${comment[el].replace("&", "AND")}`).join("&");
+    let comment = { 
+      ...formData,
+      CONTENTS: formData.CONTENTS.replace(/\n/g, "<br>"),
+      TAG: filter.TAG,
+      TIMESTAMP: Core.dateSet() };
+    let queries = Object.keys(comment).map(el => `${el}=${comment[el].replace(/&/g, "AND")}`).join("&");
+
+    console.log(queries);
 
     Core.postComments(get(URL), queries, () =>
       Core.getComments(get(URL), (data) => {
@@ -46,7 +52,15 @@
 	};
 
   const clickEditComment = () => {
-    let queries = "METHOD=edit&" + Object.keys(editData).map(el => `${el}=${editData[el]}`).join("&");
+    let queries = "METHOD=edit&" + Object.keys(editData).map(el => {
+      if(el === "CONTENTS"){
+        return `${el}=${editData[el].replace(/\n/g, "<br>")}`;
+      }else{
+        return `${el}=${editData[el]}`;
+      }
+    }).join("&");
+
+    console.log(queries);
 
     Core.postComments(get(URL), queries, () =>
       Core.getComments(get(URL), (data) => {
@@ -60,7 +74,7 @@
         return {
           ...el,
           SORT: editData.SORT,
-          CONTENTS: editData.CONTENTS,
+          CONTENTS: editData.CONTENTS.replace(/\n/g, "<br>"),
           PENDING: "Y"
         }
       }else{
@@ -97,12 +111,17 @@
 
     formData.CONTENTS = "";
   }
+
   const countComments = sort => {
     return comments.filter(el => {
       return el.TAG === get(TAGS)[tagCount] && el.SORT === sort
     }).length
-  }
+  };
 
+
+  const conveter = value => {
+    formData.CONTENTS = value.replace(/\n/g, "<br>");
+  }
 </script>
 
 <form class="{editData.KEY ? "edit" : ""}">
@@ -110,27 +129,29 @@
     {#if sorts.length > 0}
       {#key sorts}
         {#each sorts[tagCount] as sort, i}
-          <label>
-            {#key editData}
-              {#if editData.KEY}
-                <input
-                  type="radio"
-                  value={sort}
-                  bind:group={editData.SORT}
-                >
-              {:else}
-                <input
-                  type="radio"
-                  value={sort}
-                  bind:group={formData.SORT}
-                >
-              {/if}
-            {/key}
-            {sort}
-            {#key comments}
-              <span>{countComments(sort)}</span>
-            {/key}
-          </label> 
+          {#if sort !== "관리자"}
+            <label>
+              {#key editData}
+                {#if editData.KEY}
+                  <input
+                    type="radio"
+                    value={sort}
+                    bind:group={editData.SORT}
+                  >
+                {:else}
+                  <input
+                    type="radio"
+                    value={sort}
+                    bind:group={formData.SORT}
+                  >
+                {/if}
+              {/key}
+              {sort}
+              {#key comments}
+                <span>{countComments(sort)}</span>
+              {/key}
+            </label>
+          {/if}
         {/each}
       {/key}
     {/if}
@@ -139,7 +160,7 @@
     {#if editData.KEY}
       <textarea
         rows="3"
-        on:change={(event) => formData.CONTENTS = event.target.value}
+        on:change={(event) => conveter(event.target.value)}
         bind:value={editData.CONTENTS}
       />
       <div>
@@ -149,7 +170,7 @@
     {:else}
       <textarea
         rows="3"
-        on:change={(event) => formData.CONTENTS = event.target.value}
+        on:change={(event) => conveter(event.target.value)}
         bind:value={formData.CONTENTS}
       />
       <button type="button" on:click={clickSendComment}>전송</button>
