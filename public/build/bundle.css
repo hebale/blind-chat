@@ -347,13 +347,27 @@
 #app main ul > li.edit button:before {
   content: "-";
 }
+#app main > span {
+  display: inline-block;
+  width: 100%;
+  padding: 12px;
+  line-height: 20px;
+  font-size: 14px;
+  color: #fff;
+  background: #111;
+  text-align: center;
+}
 #app main section {
+  position: relative;
   margin-top: auto;
   width: 100%;
   max-width: 640px;
   border-top: 1px solid #111;
   box-sizing: border-box;
   justify-content: space-between;
+}
+#app main section.expire {
+  display: none;
 }
 #app main section > button {
   position: absolute;

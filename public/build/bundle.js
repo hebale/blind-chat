@@ -607,6 +607,7 @@ var app = (function () {
       SORT: null,
       CONTENTS: null,
     });
+    const EXPIRE = writable(false);
 
     // export const API = readable("https://script.google.com/macros/s/AKfycbxFNHpsjwJkuH7jiiJP_w4e4wLby7CxcXbKf6FWuUIoKMXzmoP_fMsgFCn8gdepXM0b/exec");
     const API = readable("https://script.google.com/macros/s/AKfycbyf0rc9sJahK3K3LkopFxL6aiGqVQ9c5mh_joYGe9i5-BtmOdpICz6NkElb2OUYn_4gMQ/exec");
@@ -1911,12 +1912,12 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[26] = list[i];
-    	child_ctx[28] = i;
+    	child_ctx[28] = list[i];
+    	child_ctx[30] = i;
     	return child_ctx;
     }
 
-    // (162:3) {:else}
+    // (183:3) {:else}
     function create_else_block(ctx) {
     	let label;
     	let input;
@@ -1930,8 +1931,8 @@ var app = (function () {
     			input = element("input");
     			t = text("\n\t\t\t\t\t나의 글");
     			attr_dev(input, "type", "checkbox");
-    			add_location(input, file, 163, 5, 3736);
-    			add_location(label, file, 162, 4, 3723);
+    			add_location(input, file, 184, 5, 4316);
+    			add_location(label, file, 183, 4, 4303);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, label, anchor);
@@ -1940,8 +1941,8 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(input, "click", /*adminCommand*/ ctx[8](250), false, false, false),
-    					listen_dev(input, "change", /*mineComment*/ ctx[11], false, false, false)
+    					listen_dev(input, "click", /*adminCommand*/ ctx[9](250), false, false, false),
+    					listen_dev(input, "change", /*mineComment*/ ctx[12], false, false, false)
     				];
 
     				mounted = true;
@@ -1959,15 +1960,15 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(162:3) {:else}",
+    		source: "(183:3) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (154:3) {#if admin}
-    function create_if_block_3(ctx) {
+    // (175:3) {#if admin}
+    function create_if_block_4(ctx) {
     	let label;
     	let input;
     	let t;
@@ -1980,8 +1981,8 @@ var app = (function () {
     			input = element("input");
     			t = text("\n\t\t\t\t\t나의 글");
     			attr_dev(input, "type", "checkbox");
-    			add_location(input, file, 155, 5, 3618);
-    			add_location(label, file, 154, 4, 3605);
+    			add_location(input, file, 176, 5, 4198);
+    			add_location(label, file, 175, 4, 4185);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, label, anchor);
@@ -1989,7 +1990,7 @@ var app = (function () {
     			append_dev(label, t);
 
     			if (!mounted) {
-    				dispose = listen_dev(input, "change", /*mineComment*/ ctx[11], false, false, false);
+    				dispose = listen_dev(input, "change", /*mineComment*/ ctx[12], false, false, false);
     				mounted = true;
     			}
     		},
@@ -2003,21 +2004,21 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_3.name,
+    		id: create_if_block_4.name,
     		type: "if",
-    		source: "(154:3) {#if admin}",
+    		source: "(175:3) {#if admin}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (153:2) {#key admin}
+    // (174:2) {#key admin}
     function create_key_block_3(ctx) {
     	let if_block_anchor;
 
     	function select_block_type(ctx, dirty) {
-    		if (/*admin*/ ctx[7]) return create_if_block_3;
+    		if (/*admin*/ ctx[8]) return create_if_block_4;
     		return create_else_block;
     	}
 
@@ -2056,17 +2057,17 @@ var app = (function () {
     		block,
     		id: create_key_block_3.name,
     		type: "key",
-    		source: "(153:2) {#key admin}",
+    		source: "(174:2) {#key admin}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (174:3) {#if admin}
-    function create_if_block_1(ctx) {
+    // (195:3) {#if admin}
+    function create_if_block_2(ctx) {
     	let nav;
-    	let each_value = /*sorts*/ ctx[4][/*tagCount*/ ctx[0]];
+    	let each_value = /*sorts*/ ctx[5][/*tagCount*/ ctx[0]];
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -2082,7 +2083,7 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			add_location(nav, file, 174, 4, 3912);
+    			add_location(nav, file, 195, 4, 4492);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, nav, anchor);
@@ -2092,8 +2093,8 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*sorts, tagCount, filter, changeFilter*/ 4117) {
-    				each_value = /*sorts*/ ctx[4][/*tagCount*/ ctx[0]];
+    			if (dirty & /*sorts, tagCount, filter, changeFilter*/ 8229) {
+    				each_value = /*sorts*/ ctx[5][/*tagCount*/ ctx[0]];
     				validate_each_argument(each_value);
     				let i;
 
@@ -2124,30 +2125,30 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_1.name,
+    		id: create_if_block_2.name,
     		type: "if",
-    		source: "(174:3) {#if admin}",
+    		source: "(195:3) {#if admin}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (177:6) {#if sort !== "관리자"}
-    function create_if_block_2(ctx) {
+    // (198:6) {#if sort !== "관리자"}
+    function create_if_block_3(ctx) {
     	let label;
     	let input;
     	let input_value_value;
     	let input_checked_value;
     	let t0;
-    	let t1_value = /*sort*/ ctx[26] + "";
+    	let t1_value = /*sort*/ ctx[28] + "";
     	let t1;
     	let t2;
     	let mounted;
     	let dispose;
 
     	function change_handler(...args) {
-    		return /*change_handler*/ ctx[14](/*i*/ ctx[28], ...args);
+    		return /*change_handler*/ ctx[15](/*i*/ ctx[30], ...args);
     	}
 
     	const block = {
@@ -2158,10 +2159,10 @@ var app = (function () {
     			t1 = text(t1_value);
     			t2 = space();
     			attr_dev(input, "type", "checkbox");
-    			input.value = input_value_value = /*sort*/ ctx[26];
-    			input.checked = input_checked_value = /*filter*/ ctx[2].SORT[/*tagCount*/ ctx[0]][/*i*/ ctx[28]];
-    			add_location(input, file, 178, 8, 4008);
-    			add_location(label, file, 177, 7, 3992);
+    			input.value = input_value_value = /*sort*/ ctx[28];
+    			input.checked = input_checked_value = /*filter*/ ctx[2].SORT[/*tagCount*/ ctx[0]][/*i*/ ctx[30]];
+    			add_location(input, file, 199, 8, 4588);
+    			add_location(label, file, 198, 7, 4572);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, label, anchor);
@@ -2178,15 +2179,15 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty & /*sorts, tagCount*/ 17 && input_value_value !== (input_value_value = /*sort*/ ctx[26])) {
+    			if (dirty & /*sorts, tagCount*/ 33 && input_value_value !== (input_value_value = /*sort*/ ctx[28])) {
     				prop_dev(input, "value", input_value_value);
     			}
 
-    			if (dirty & /*filter, tagCount*/ 5 && input_checked_value !== (input_checked_value = /*filter*/ ctx[2].SORT[/*tagCount*/ ctx[0]][/*i*/ ctx[28]])) {
+    			if (dirty & /*filter, tagCount*/ 5 && input_checked_value !== (input_checked_value = /*filter*/ ctx[2].SORT[/*tagCount*/ ctx[0]][/*i*/ ctx[30]])) {
     				prop_dev(input, "checked", input_checked_value);
     			}
 
-    			if (dirty & /*sorts, tagCount*/ 17 && t1_value !== (t1_value = /*sort*/ ctx[26] + "")) set_data_dev(t1, t1_value);
+    			if (dirty & /*sorts, tagCount*/ 33 && t1_value !== (t1_value = /*sort*/ ctx[28] + "")) set_data_dev(t1, t1_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(label);
@@ -2197,19 +2198,19 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_2.name,
+    		id: create_if_block_3.name,
     		type: "if",
-    		source: "(177:6) {#if sort !== \\\"관리자\\\"}",
+    		source: "(198:6) {#if sort !== \\\"관리자\\\"}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (176:5) {#each sorts[tagCount] as sort, i}
+    // (197:5) {#each sorts[tagCount] as sort, i}
     function create_each_block(ctx) {
     	let if_block_anchor;
-    	let if_block = /*sort*/ ctx[26] !== "관리자" && create_if_block_2(ctx);
+    	let if_block = /*sort*/ ctx[28] !== "관리자" && create_if_block_3(ctx);
 
     	const block = {
     		c: function create() {
@@ -2221,7 +2222,52 @@ var app = (function () {
     			insert_dev(target, if_block_anchor, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (/*sort*/ ctx[26] !== "관리자") {
+    			if (/*sort*/ ctx[28] !== "관리자") {
+    				if (if_block) {
+    					if_block.p(ctx, dirty);
+    				} else {
+    					if_block = create_if_block_3(ctx);
+    					if_block.c();
+    					if_block.m(if_block_anchor.parentNode, if_block_anchor);
+    				}
+    			} else if (if_block) {
+    				if_block.d(1);
+    				if_block = null;
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (if_block) if_block.d(detaching);
+    			if (detaching) detach_dev(if_block_anchor);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block.name,
+    		type: "each",
+    		source: "(197:5) {#each sorts[tagCount] as sort, i}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (194:2) {#key admin}
+    function create_key_block_2(ctx) {
+    	let if_block_anchor;
+    	let if_block = /*admin*/ ctx[8] && create_if_block_2(ctx);
+
+    	const block = {
+    		c: function create() {
+    			if (if_block) if_block.c();
+    			if_block_anchor = empty();
+    		},
+    		m: function mount(target, anchor) {
+    			if (if_block) if_block.m(target, anchor);
+    			insert_dev(target, if_block_anchor, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (/*admin*/ ctx[8]) {
     				if (if_block) {
     					if_block.p(ctx, dirty);
     				} else {
@@ -2242,68 +2288,23 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_each_block.name,
-    		type: "each",
-    		source: "(176:5) {#each sorts[tagCount] as sort, i}",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (173:2) {#key admin}
-    function create_key_block_2(ctx) {
-    	let if_block_anchor;
-    	let if_block = /*admin*/ ctx[7] && create_if_block_1(ctx);
-
-    	const block = {
-    		c: function create() {
-    			if (if_block) if_block.c();
-    			if_block_anchor = empty();
-    		},
-    		m: function mount(target, anchor) {
-    			if (if_block) if_block.m(target, anchor);
-    			insert_dev(target, if_block_anchor, anchor);
-    		},
-    		p: function update(ctx, dirty) {
-    			if (/*admin*/ ctx[7]) {
-    				if (if_block) {
-    					if_block.p(ctx, dirty);
-    				} else {
-    					if_block = create_if_block_1(ctx);
-    					if_block.c();
-    					if_block.m(if_block_anchor.parentNode, if_block_anchor);
-    				}
-    			} else if (if_block) {
-    				if_block.d(1);
-    				if_block = null;
-    			}
-    		},
-    		d: function destroy(detaching) {
-    			if (if_block) if_block.d(detaching);
-    			if (detaching) detach_dev(if_block_anchor);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
     		id: create_key_block_2.name,
     		type: "key",
-    		source: "(173:2) {#key admin}",
+    		source: "(194:2) {#key admin}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (194:2) {#key filter}
+    // (215:2) {#key filter}
     function create_key_block_1(ctx) {
     	let comments_1;
     	let current;
 
     	comments_1 = new Comments({
     			props: {
-    				comments: /*commentSort*/ ctx[10](/*comments*/ ctx[1])
+    				comments: /*commentSort*/ ctx[11](/*comments*/ ctx[1])
     			},
     			$$inline: true
     		});
@@ -2318,7 +2319,7 @@ var app = (function () {
     		},
     		p: function update(ctx, dirty) {
     			const comments_1_changes = {};
-    			if (dirty & /*comments*/ 2) comments_1_changes.comments = /*commentSort*/ ctx[10](/*comments*/ ctx[1]);
+    			if (dirty & /*comments*/ 2) comments_1_changes.comments = /*commentSort*/ ctx[11](/*comments*/ ctx[1]);
     			comments_1.$set(comments_1_changes);
     		},
     		i: function intro(local) {
@@ -2339,14 +2340,43 @@ var app = (function () {
     		block,
     		id: create_key_block_1.name,
     		type: "key",
-    		source: "(194:2) {#key filter}",
+    		source: "(215:2) {#key filter}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (200:4) {#if news}
+    // (219:2) {#if expire}
+    function create_if_block_1(ctx) {
+    	let span;
+
+    	const block = {
+    		c: function create() {
+    			span = element("span");
+    			span.textContent = "의견 수집이 종료되었습니다.";
+    			add_location(span, file, 219, 3, 4947);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, span, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(span);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_1.name,
+    		type: "if",
+    		source: "(219:2) {#if expire}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (224:4) {#if news}
     function create_if_block(ctx) {
     	let button;
     	let mounted;
@@ -2357,13 +2387,13 @@ var app = (function () {
     			button = element("button");
     			button.textContent = "새로운 코멘트";
     			attr_dev(button, "type", "button");
-    			add_location(button, file, 200, 5, 4396);
+    			add_location(button, file, 224, 5, 5065);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
 
     			if (!mounted) {
-    				dispose = listen_dev(button, "click", /*checkNewComment*/ ctx[13], false, false, false);
+    				dispose = listen_dev(button, "click", /*checkNewComment*/ ctx[14], false, false, false);
     				mounted = true;
     			}
     		},
@@ -2379,17 +2409,17 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(200:4) {#if news}",
+    		source: "(224:4) {#if news}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (199:3) {#key news}
+    // (223:3) {#key news}
     function create_key_block(ctx) {
     	let if_block_anchor;
-    	let if_block = /*news*/ ctx[3] && create_if_block(ctx);
+    	let if_block = /*news*/ ctx[4] && create_if_block(ctx);
 
     	const block = {
     		c: function create() {
@@ -2401,7 +2431,7 @@ var app = (function () {
     			insert_dev(target, if_block_anchor, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (/*news*/ ctx[3]) {
+    			if (/*news*/ ctx[4]) {
     				if (if_block) {
     					if_block.p(ctx, dirty);
     				} else {
@@ -2424,7 +2454,7 @@ var app = (function () {
     		block,
     		id: create_key_block.name,
     		type: "key",
-    		source: "(199:3) {#key news}",
+    		source: "(223:3) {#key news}",
     		ctx
     	});
 
@@ -2440,20 +2470,22 @@ var app = (function () {
     	let button;
     	let t2;
     	let t3;
-    	let previous_key = /*admin*/ ctx[7];
+    	let previous_key = /*admin*/ ctx[8];
     	let t4;
-    	let previous_key_1 = /*admin*/ ctx[7];
+    	let previous_key_1 = /*admin*/ ctx[8];
     	let t5;
     	let main;
     	let previous_key_2 = /*filter*/ ctx[2];
     	let t6;
-    	let section;
-    	let previous_key_3 = /*news*/ ctx[3];
     	let t7;
+    	let section;
+    	let previous_key_3 = /*news*/ ctx[4];
+    	let t8;
     	let inputform;
     	let updating_comments;
     	let updating_tagIndex;
     	let updating_sorts;
+    	let section_class_value;
     	let div_class_value;
     	let current;
     	let mounted;
@@ -2461,18 +2493,19 @@ var app = (function () {
     	let key_block0 = create_key_block_3(ctx);
     	let key_block1 = create_key_block_2(ctx);
     	let key_block2 = create_key_block_1(ctx);
+    	let if_block = /*expire*/ ctx[3] && create_if_block_1(ctx);
     	let key_block3 = create_key_block(ctx);
 
     	function inputform_comments_binding(value) {
-    		/*inputform_comments_binding*/ ctx[15](value);
+    		/*inputform_comments_binding*/ ctx[16](value);
     	}
 
     	function inputform_tagIndex_binding(value) {
-    		/*inputform_tagIndex_binding*/ ctx[16](value);
+    		/*inputform_tagIndex_binding*/ ctx[17](value);
     	}
 
     	function inputform_sorts_binding(value) {
-    		/*inputform_sorts_binding*/ ctx[17](value);
+    		/*inputform_sorts_binding*/ ctx[18](value);
     	}
 
     	let inputform_props = {};
@@ -2485,8 +2518,8 @@ var app = (function () {
     		inputform_props.tagIndex = /*tagCount*/ ctx[0];
     	}
 
-    	if (/*sorts*/ ctx[4] !== void 0) {
-    		inputform_props.sorts = /*sorts*/ ctx[4];
+    	if (/*sorts*/ ctx[5] !== void 0) {
+    		inputform_props.sorts = /*sorts*/ ctx[5];
     	}
 
     	inputform = new InputForm({ props: inputform_props, $$inline: true });
@@ -2503,7 +2536,7 @@ var app = (function () {
     			t1 = space();
     			h1 = element("h1");
     			button = element("button");
-    			t2 = text(/*title*/ ctx[5]);
+    			t2 = text(/*title*/ ctx[6]);
     			t3 = space();
     			key_block0.c();
     			t4 = space();
@@ -2512,21 +2545,24 @@ var app = (function () {
     			main = element("main");
     			key_block2.c();
     			t6 = space();
+    			if (if_block) if_block.c();
+    			t7 = space();
     			section = element("section");
     			key_block3.c();
-    			t7 = space();
+    			t8 = space();
     			create_component(inputform.$$.fragment);
     			attr_dev(a, "href", "http://digitest.hankookilbo.com/others/workshop/");
-    			add_location(a, file, 148, 2, 3427);
+    			add_location(a, file, 169, 2, 4007);
     			attr_dev(button, "type", "button");
-    			add_location(button, file, 150, 3, 3503);
-    			add_location(h1, file, 149, 2, 3495);
-    			add_location(header, file, 147, 1, 3416);
-    			add_location(section, file, 197, 2, 4351);
-    			add_location(main, file, 192, 1, 4267);
+    			add_location(button, file, 171, 3, 4083);
+    			add_location(h1, file, 170, 2, 4075);
+    			add_location(header, file, 168, 1, 3996);
+    			attr_dev(section, "class", section_class_value = /*expire*/ ctx[3] ? "expire" : "");
+    			add_location(section, file, 221, 2, 4986);
+    			add_location(main, file, 213, 1, 4847);
     			attr_dev(div, "id", "app");
-    			attr_dev(div, "class", div_class_value = "" + ((/*onload*/ ctx[6] ? "onload" : "") + " " + (/*admin*/ ctx[7] ? 'admin' : '')));
-    			add_location(div, file, 146, 0, 3344);
+    			attr_dev(div, "class", div_class_value = "" + ((/*onload*/ ctx[7] ? "onload" : "") + " " + (/*admin*/ ctx[8] ? 'admin' : '')));
+    			add_location(div, file, 167, 0, 3924);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2547,21 +2583,23 @@ var app = (function () {
     			append_dev(div, main);
     			key_block2.m(main, null);
     			append_dev(main, t6);
+    			if (if_block) if_block.m(main, null);
+    			append_dev(main, t7);
     			append_dev(main, section);
     			key_block3.m(section, null);
-    			append_dev(section, t7);
+    			append_dev(section, t8);
     			mount_component(inputform, section, null);
     			current = true;
 
     			if (!mounted) {
-    				dispose = listen_dev(button, "click", /*changeTag*/ ctx[9], false, false, false);
+    				dispose = listen_dev(button, "click", /*changeTag*/ ctx[10], false, false, false);
     				mounted = true;
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (!current || dirty & /*title*/ 32) set_data_dev(t2, /*title*/ ctx[5]);
+    			if (!current || dirty & /*title*/ 64) set_data_dev(t2, /*title*/ ctx[6]);
 
-    			if (dirty & /*admin*/ 128 && safe_not_equal(previous_key, previous_key = /*admin*/ ctx[7])) {
+    			if (dirty & /*admin*/ 256 && safe_not_equal(previous_key, previous_key = /*admin*/ ctx[8])) {
     				key_block0.d(1);
     				key_block0 = create_key_block_3(ctx);
     				key_block0.c();
@@ -2570,7 +2608,7 @@ var app = (function () {
     				key_block0.p(ctx, dirty);
     			}
 
-    			if (dirty & /*admin*/ 128 && safe_not_equal(previous_key_1, previous_key_1 = /*admin*/ ctx[7])) {
+    			if (dirty & /*admin*/ 256 && safe_not_equal(previous_key_1, previous_key_1 = /*admin*/ ctx[8])) {
     				key_block1.d(1);
     				key_block1 = create_key_block_2(ctx);
     				key_block1.c();
@@ -2591,11 +2629,22 @@ var app = (function () {
     				key_block2.p(ctx, dirty);
     			}
 
-    			if (dirty & /*news*/ 8 && safe_not_equal(previous_key_3, previous_key_3 = /*news*/ ctx[3])) {
+    			if (/*expire*/ ctx[3]) {
+    				if (if_block) ; else {
+    					if_block = create_if_block_1(ctx);
+    					if_block.c();
+    					if_block.m(main, t7);
+    				}
+    			} else if (if_block) {
+    				if_block.d(1);
+    				if_block = null;
+    			}
+
+    			if (dirty & /*news*/ 16 && safe_not_equal(previous_key_3, previous_key_3 = /*news*/ ctx[4])) {
     				key_block3.d(1);
     				key_block3 = create_key_block(ctx);
     				key_block3.c();
-    				key_block3.m(section, t7);
+    				key_block3.m(section, t8);
     			} else {
     				key_block3.p(ctx, dirty);
     			}
@@ -2614,15 +2663,19 @@ var app = (function () {
     				add_flush_callback(() => updating_tagIndex = false);
     			}
 
-    			if (!updating_sorts && dirty & /*sorts*/ 16) {
+    			if (!updating_sorts && dirty & /*sorts*/ 32) {
     				updating_sorts = true;
-    				inputform_changes.sorts = /*sorts*/ ctx[4];
+    				inputform_changes.sorts = /*sorts*/ ctx[5];
     				add_flush_callback(() => updating_sorts = false);
     			}
 
     			inputform.$set(inputform_changes);
 
-    			if (!current || dirty & /*onload, admin*/ 192 && div_class_value !== (div_class_value = "" + ((/*onload*/ ctx[6] ? "onload" : "") + " " + (/*admin*/ ctx[7] ? 'admin' : '')))) {
+    			if (!current || dirty & /*expire*/ 8 && section_class_value !== (section_class_value = /*expire*/ ctx[3] ? "expire" : "")) {
+    				attr_dev(section, "class", section_class_value);
+    			}
+
+    			if (!current || dirty & /*onload, admin*/ 384 && div_class_value !== (div_class_value = "" + ((/*onload*/ ctx[7] ? "onload" : "") + " " + (/*admin*/ ctx[8] ? 'admin' : '')))) {
     				attr_dev(div, "class", div_class_value);
     			}
     		},
@@ -2642,6 +2695,7 @@ var app = (function () {
     			key_block0.d(detaching);
     			key_block1.d(detaching);
     			key_block2.d(detaching);
+    			if (if_block) if_block.d();
     			key_block3.d(detaching);
     			destroy_component(inputform);
     			mounted = false;
@@ -2671,7 +2725,7 @@ var app = (function () {
     	let mode = "basic";
     	let tagCount = 0;
     	let adminCount = 0;
-    	let comments, filter, tags;
+    	let comments, filter, tags, expire;
     	let newsComment;
 
     	COMMENTS.subscribe(arr => {
@@ -2682,8 +2736,9 @@ var app = (function () {
     	});
 
     	TAGS.subscribe(arr => tags = arr.map(el => el.replace(/AND/, "&")));
-    	SORTS.subscribe(arr => $$invalidate(4, sorts = arr));
+    	SORTS.subscribe(arr => $$invalidate(5, sorts = arr));
     	FILTER.subscribe(obj => $$invalidate(2, filter = obj));
+    	EXPIRE.subscribe(str => $$invalidate(3, expire = str));
 
     	// init
     	if (!getCookie("uuid")) setCookie("uuid", uuidv4(), 30);
@@ -2707,16 +2762,18 @@ var app = (function () {
     			return { ...obj, ...newObj };
     		});
 
-    		$$invalidate(7, admin = data.admin === "Y");
-    		$$invalidate(5, title = tags[tagCount]);
-    		$$invalidate(6, onload = true);
+    		EXPIRE.update(num => new Date(data.expire).getTime() - new Date().getTime() < 0);
+    		$$invalidate(8, admin = data.admin === "Y");
+    		$$invalidate(6, title = tags[tagCount]);
+    		$$invalidate(7, onload = true);
     		appHeight();
 
+    		// expireTimer();
     		setTimeout(
     			() => {
     				scrollAnimation("main ul", "main ul > li:last-child");
     			},
-    			300
+    			150
     		);
     	}); // reloadComments();
 
@@ -2750,13 +2807,13 @@ var app = (function () {
     	};
 
     	const changeAdmin = () => {
-    		$$invalidate(6, onload = false);
+    		$$invalidate(7, onload = false);
 
     		postComments(get_store_value(URL), "ADMIN=Y", () => {
     			getComments(get_store_value(URL), data => {
     				COMMENTS.set(data.list);
-    				$$invalidate(7, admin = data.admin === "Y");
-    				$$invalidate(6, onload = true);
+    				$$invalidate(8, admin = data.admin === "Y");
+    				$$invalidate(7, onload = true);
     			});
     		});
     	};
@@ -2765,7 +2822,14 @@ var app = (function () {
     		$$invalidate(0, tagCount++, tagCount);
     		if (tagCount > tags.length - 1) $$invalidate(0, tagCount = 0);
     		FILTER.update(obj => ({ ...obj, TAG: tags[tagCount] }));
-    		$$invalidate(5, title = tags[tagCount]);
+    		$$invalidate(6, title = tags[tagCount]);
+
+    		setTimeout(
+    			() => {
+    				scrollAnimation("main ul", "main ul > li:last-child");
+    			},
+    			150
+    		);
     	};
 
     	const commentSort = arr => {
@@ -2794,7 +2858,7 @@ var app = (function () {
     		newsComment = setInterval(
     			() => {
     				getComments(get_store_value(URL), data => {
-    					if (data.list.length > comments.length) $$invalidate(3, news = true);
+    					if (data.list.length > comments.length) $$invalidate(4, news = true);
     					COMMENTS.set(data.list);
     				});
     			},
@@ -2803,8 +2867,22 @@ var app = (function () {
     	};
 
     	const checkNewComment = () => {
-    		$$invalidate(3, news = false);
+    		$$invalidate(4, news = false);
     		scrollAnimation("main ul", "main ul > li:last-child");
+    	};
+
+    	const expireTimer = () => {
+    		const oneDay = 24 * 60 * 60 * 1000;
+
+    		const ticker = () => {
+    			if (get_store_value(EXPIRE) > oneDay) return;
+
+    			// let hours = Math.floor(get(EXPIRE) / (60 * 60 * 1000));
+    			// let minutes = hours
+    			if (get_store_value(EXPIRE) < 0) clearInterval(timer);
+    		};
+
+    		let timer = setInterval(ticker, 1000);
     	};
 
     	const writable_props = [];
@@ -2827,7 +2905,7 @@ var app = (function () {
 
     	function inputform_sorts_binding(value) {
     		sorts = value;
-    		$$invalidate(4, sorts);
+    		$$invalidate(5, sorts);
     	}
 
     	$$self.$capture_state = () => ({
@@ -2839,6 +2917,7 @@ var app = (function () {
     		FILTER,
     		SORTS,
     		COMMENTS,
+    		EXPIRE,
     		Comments,
     		InputForm,
     		mode,
@@ -2847,6 +2926,7 @@ var app = (function () {
     		comments,
     		filter,
     		tags,
+    		expire,
     		newsComment,
     		vh,
     		appHeight,
@@ -2858,6 +2938,7 @@ var app = (function () {
     		changeFilter,
     		reloadComments,
     		checkNewComment,
+    		expireTimer,
     		news,
     		sorts,
     		title,
@@ -2872,28 +2953,30 @@ var app = (function () {
     		if ('comments' in $$props) $$invalidate(1, comments = $$props.comments);
     		if ('filter' in $$props) $$invalidate(2, filter = $$props.filter);
     		if ('tags' in $$props) tags = $$props.tags;
+    		if ('expire' in $$props) $$invalidate(3, expire = $$props.expire);
     		if ('newsComment' in $$props) newsComment = $$props.newsComment;
-    		if ('news' in $$props) $$invalidate(3, news = $$props.news);
-    		if ('sorts' in $$props) $$invalidate(4, sorts = $$props.sorts);
-    		if ('title' in $$props) $$invalidate(5, title = $$props.title);
-    		if ('onload' in $$props) $$invalidate(6, onload = $$props.onload);
-    		if ('admin' in $$props) $$invalidate(7, admin = $$props.admin);
+    		if ('news' in $$props) $$invalidate(4, news = $$props.news);
+    		if ('sorts' in $$props) $$invalidate(5, sorts = $$props.sorts);
+    		if ('title' in $$props) $$invalidate(6, title = $$props.title);
+    		if ('onload' in $$props) $$invalidate(7, onload = $$props.onload);
+    		if ('admin' in $$props) $$invalidate(8, admin = $$props.admin);
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	$$invalidate(5, title = "TITLE");
-    	$$invalidate(6, onload = false);
-    	$$invalidate(7, admin = false);
-    	$$invalidate(3, news = false);
-    	$$invalidate(4, sorts = []);
+    	$$invalidate(6, title = "TITLE");
+    	$$invalidate(7, onload = false);
+    	$$invalidate(8, admin = false);
+    	$$invalidate(4, news = false);
+    	$$invalidate(5, sorts = []);
 
     	return [
     		tagCount,
     		comments,
     		filter,
+    		expire,
     		news,
     		sorts,
     		title,

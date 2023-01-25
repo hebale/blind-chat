@@ -2,7 +2,7 @@
 	import { get } from "svelte/store";
 
 	import * as Core from './assets/js/core';
-	import { URL, UUID, TAGS, FILTER, SORTS, COMMENTS } from './assets/js/store';
+	import { URL, UUID, TAGS, FILTER, SORTS, COMMENTS, EXPIRE } from './assets/js/store';
 
 	import Comments from './component/Comments.svelte';
 	import InputForm from './component/InputForm.svelte';
@@ -10,7 +10,7 @@
 	let mode = "basic";
 	let tagCount = 0;
 	let adminCount = 0;
-	let comments, filter, tags;	
+	let comments, filter, tags, expire;	
 	let newsComment;
 
 	$: title = "TITLE";
@@ -28,6 +28,7 @@
 	TAGS.subscribe((arr) => tags = arr.map(el => el.replace(/AND/, "&")));
 	SORTS.subscribe((arr) => sorts = arr);
 	FILTER.subscribe((obj) => filter = obj);
+	EXPIRE.subscribe((str) => expire = str);
 
 	// init
 	if(!Core.getCookie("uuid")) Core.setCookie("uuid", Core.uuidv4(), 30);
@@ -49,16 +50,18 @@
 
 			return {...obj, ...newObj}
 		});
+		EXPIRE.update((num) => (new Date(data.expire).getTime() - new Date().getTime()) < 0 );
 
 		admin = data.admin === "Y";
 		title = tags[tagCount];
 		onload = true;
 
 		appHeight();
+		// expireTimer();
 		
 		setTimeout(() => {
 			Core.scrollAnimation("main ul", "main ul > li:last-child");
-		}, 300)
+		}, 150);
 		// reloadComments();
 	});
 
@@ -104,6 +107,10 @@
 
 		FILTER.update((obj) => ({...obj, TAG: tags[tagCount]}));
 		title = tags[tagCount];
+
+		setTimeout(() => {
+			Core.scrollAnimation("main ul", "main ul > li:last-child");
+		}, 150)
 	};
 
   const commentSort = (arr) => {
@@ -142,6 +149,20 @@
 		news = false;
 		Core.scrollAnimation("main ul", "main ul > li:last-child");
 	};
+
+	const expireTimer = () => {
+		const oneDay = 24 * 60 * 60 * 1000;
+		const ticker = () => {
+			if (get(EXPIRE) > oneDay) return;
+			// let hours = Math.floor(get(EXPIRE) / (60 * 60 * 1000));
+			// let minutes = hours
+			if (get(EXPIRE) < 0) clearInterval(timer);
+		};
+
+		let timer = setInterval(ticker, 1000);
+	};
+
+
 </script>
 
 <div id="app" class="{onload ? "onload" : ""} {admin ? 'admin' : ''}">
@@ -195,7 +216,10 @@
 			<Comments comments={commentSort(comments)} />
 		{/key}
 
-		<section>
+		{#if expire}
+			<span>의견 수집이 종료되었습니다.</span>
+		{/if}
+		<section class="{expire ? "expire" : ""}" >
 			{#key news}
 				{#if news}
 					<button type="button" on:click={checkNewComment}>새로운 코멘트</button>

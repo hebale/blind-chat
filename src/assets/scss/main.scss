@@ -380,18 +380,28 @@ $editLight: #fff;
       }
     }
 
+    > span {
+      display: inline-block;
+      width: 100%;
+      padding: 12px;
+      line-height: 20px;
+      font-size: 14px;
+      color: $lightColor;
+      background: $darkBgColor;
+      text-align: center;
+    }
+
     section {
-      // position: fixed;
-      // left: 50%;
-      // right: 0;
-      // bottom: 0;
+      position: relative;
       margin-top: auto;
       width: 100%;
       max-width: 640px;
       border-top: 1px solid $darkColor;
-      // transform: translateX(-50%);
       box-sizing: border-box;
       justify-content: space-between;
+      &.expire {
+        display: none;
+      }
       > button {
         position: absolute;
         top: -50px;
