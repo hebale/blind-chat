@@ -6,6 +6,9 @@
   export let comments;
 
   let editData;
+  let newsComment;
+
+  $: news = true;
 
   EDITDATA.subscribe((obj) => editData = obj);
 
@@ -29,6 +32,36 @@
     }
   };
 
+
+  /* new comment check script */
+
+  const reloadComments = () => {
+		newsComment = setInterval(() => {
+			Core.getComments(get(URL), (data) => {
+				if(data.list.length > comments.length) news = true;
+				COMMENTS.set(data.list);
+			})
+		}, 60000);
+	};
+	
+	const checkNewComment = () => {
+		news = false;
+		Core.scrollAnimation("main ul", "main ul > li:last-child");
+	};
+
+	const expireTimer = () => {
+		const oneDay = 24 * 60 * 60 * 1000;
+		const ticker = () => {
+			if (get(EXPIRE) > oneDay) return;
+			// let hours = Math.floor(get(EXPIRE) / (60 * 60 * 1000));
+			// let minutes = hours
+			if (get(EXPIRE) < 0) clearInterval(timer);
+		};
+
+		let timer = setInterval(ticker, 1000);
+	};
+  // 
+
 </script>
 
 <ul>
@@ -51,3 +84,9 @@
     {/each}
   {/key}
 </ul>
+
+{#key news}
+  {#if news}
+    <button type="button" on:click={checkNewComment}>새로운 코멘트</button>
+  {/if}
+{/key}

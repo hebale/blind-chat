@@ -17,6 +17,10 @@ $editLight: #fff;
   font-display: swap;
   src: local('Pretendard Variable'), url('./PretendardVariable.woff2') format('woff2-variations');
 }
+#app * {
+  user-select: none;
+  -webkit-user-select: none;
+}
 
 #app {
   position: relative;
@@ -544,8 +548,3 @@ $editLight: #fff;
     content: "....";
   }
 }
-
-// 롤링문구
-// 조직과 구성원의 성장과 관계쉽이니까 특정인을 인신공격하거나 역량 또는 스킬을 문제시하면안돼
-//
-// 타인을 인신공격 및

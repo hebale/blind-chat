@@ -9,9 +9,7 @@
 
 	let mode = "basic";
 	let tagCount = 0;
-	let adminCount = 0;
 	let comments, filter, tags, expire;	
-	let newsComment;
 
 	$: title = "TITLE";
 	$: onload = false;
@@ -57,41 +55,41 @@
 		onload = true;
 
 		appHeight();
-		// expireTimer();
 		
 		setTimeout(() => {
 			Core.scrollAnimation("main ul", "main ul > li:last-child");
 		}, 150);
-		// reloadComments();
 	});
 
 	const appHeight = () => {
     const doc = document.documentElement
 			doc.style.setProperty('--app-height', `${window.innerHeight}px`)
 	}
-	window.addEventListener('resize', appHeight)
+
+	window.addEventListener('resize', appHeight);
 	
-	const adminCommand = (delay) => {
-		let timer;
-		// let count = 0;
+	const adminCommand = (() => {
+		let timer, count;
 		
-		return () => {
-			clearTimeout(timer);
-			adminCount += 1;
-			
-			if(adminCount >= 10){
-				adminCount = 0;
-				return changeAdmin()
-			};
-			timer = setTimeout(() => {
-				adminCount = 0
-			}, delay);
+		return {
+			countUp: () => { 
+				clearTimeout(timer);
+				count += 1;
+				
+				if(count >= 10){
+					count = 0;
+					return changeAdmin()
+				};
+				timer = setTimeout(() => {
+					count = 0
+				}, 250);
+			}
 		};
-	};
+	})();
 
 	const changeAdmin = () => {
 		onload = false;
-		Core.postComments(get(URL), "ADMIN=Y", () => {
+		Core.postComments(get(URL), { ADMIN: "Y" }, () => {
 			Core.getComments(get(URL), (data) => {
 				COMMENTS.set(data.list);
 
@@ -136,33 +134,6 @@
 		});
 	};
 
-	const reloadComments = () => {
-		newsComment = setInterval(() => {
-			Core.getComments(get(URL), (data) => {
-				if(data.list.length > comments.length) news = true;
-				COMMENTS.set(data.list);
-			})
-		}, 60000);
-	};
-	
-	const checkNewComment = () => {
-		news = false;
-		Core.scrollAnimation("main ul", "main ul > li:last-child");
-	};
-
-	const expireTimer = () => {
-		const oneDay = 24 * 60 * 60 * 1000;
-		const ticker = () => {
-			if (get(EXPIRE) > oneDay) return;
-			// let hours = Math.floor(get(EXPIRE) / (60 * 60 * 1000));
-			// let minutes = hours
-			if (get(EXPIRE) < 0) clearInterval(timer);
-		};
-
-		let timer = setInterval(ticker, 1000);
-	};
-
-
 </script>
 
 <div id="app" class="{onload ? "onload" : ""} {admin ? 'admin' : ''}">
@@ -172,24 +143,14 @@
 			<button type="button" on:click={changeTag}>{title}</button>
 		</h1>
 		{#key admin}
-			{#if admin}
-				<label>
-					<input
-						type="checkbox" 
-						on:change={mineComment}
-					>
-					나의 글
-				</label>
-			{:else}
-				<label>
-					<input
-						type="checkbox"
-						on:click={adminCommand(250)}
-						on:change={mineComment}
-					>
-					나의 글
-				</label>
-			{/if}
+			<label>
+				<input
+					type="checkbox"
+					on:click={admin ? null : adminCommand.countUp() }
+					on:change={mineComment}
+				>
+				나의 글
+			</label>
 		{/key}
 		{#key admin}
 			{#if admin}
@@ -207,7 +168,7 @@
 							</label>
 						{/if}
 					{/each}
-					</nav>
+				</nav>
 			{/if}
 		{/key}
 	</header>
@@ -219,12 +180,8 @@
 		{#if expire}
 			<span>의견 수집이 종료되었습니다.</span>
 		{/if}
+
 		<section class="{expire ? "expire" : ""}" >
-			{#key news}
-				{#if news}
-					<button type="button" on:click={checkNewComment}>새로운 코멘트</button>
-				{/if}
-			{/key}
 			<InputForm bind:comments={comments} bind:tagIndex={tagCount} bind:sorts={sorts} />
 		</section>
 	</main>

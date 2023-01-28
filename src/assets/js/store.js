@@ -21,6 +21,6 @@ export const EDITDATA = writable({
 });
 export const EXPIRE = writable(false);
 
-// export const API = readable("https://script.google.com/macros/s/AKfycbxFNHpsjwJkuH7jiiJP_w4e4wLby7CxcXbKf6FWuUIoKMXzmoP_fMsgFCn8gdepXM0b/exec");
-export const API = readable("https://script.google.com/macros/s/AKfycbyf0rc9sJahK3K3LkopFxL6aiGqVQ9c5mh_joYGe9i5-BtmOdpICz6NkElb2OUYn_4gMQ/exec");
+export const API = readable("https://script.google.com/macros/s/AKfycbxFNHpsjwJkuH7jiiJP_w4e4wLby7CxcXbKf6FWuUIoKMXzmoP_fMsgFCn8gdepXM0b/exec");
+// export const API = readable("https://script.google.com/macros/s/AKfycbyf0rc9sJahK3K3LkopFxL6aiGqVQ9c5mh_joYGe9i5-BtmOdpICz6NkElb2OUYn_4gMQ/exec");
 export const URL = readable(`${get(API)}?UUID=${get(UUID)}`);
