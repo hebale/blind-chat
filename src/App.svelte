@@ -9,7 +9,7 @@
 
 	let mode = "basic";
 	let tagCount = 0;
-	let comments, filter, tags, expire;	
+	let comments, filter, tags, expire;
 
 	$: title = "TITLE";
 	$: onload = false;
@@ -61,12 +61,13 @@
 		}, 150);
 	});
 
+
+
+
 	const appHeight = () => {
     const doc = document.documentElement
 			doc.style.setProperty('--app-height', `${window.innerHeight}px`)
-	}
-
-	window.addEventListener('resize', appHeight);
+	};
 	
 	const adminCommand = (() => {
 		let timer, count;
@@ -135,6 +136,8 @@
 	};
 
 </script>
+
+<svelte:window on:resize={appHeight}/>
 
 <div id="app" class="{onload ? "onload" : ""} {admin ? 'admin' : ''}">
 	<header>

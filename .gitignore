@@ -1,5 +1,6 @@
 # Folder
 /node_modules/
+/public/build/
 
 # VSCode project files
 .vscode
