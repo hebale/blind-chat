@@ -8,7 +8,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: action/checkot@v3
+      - uses: action/checkout@v3
       
       - name: Use Nodejs
         uses: action/setup-node@v1
