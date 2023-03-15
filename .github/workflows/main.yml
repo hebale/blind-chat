@@ -8,10 +8,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: action/checkout@v3
+      - uses: actions/checkout@v3
       
       - name: Use Nodejs
-        uses: action/setup-node@v1
+        uses: actions/setup-node@v1
         with:
           node-version: 16.x
       
