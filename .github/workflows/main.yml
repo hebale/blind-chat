@@ -23,10 +23,9 @@ jobs:
       - name: Deploy
         uses: SamKirkland/FTP-Deploy-Action@2.0.0
         with:
-          ftp_server: ${{ secrets.FTP_HOST }}
-          ftp_username: ${{ secrets.FTP_USERNAME }}
-          ftp_password: ${{ secrets.FTP_PASSWORD }}
-          local_dir: ./public/
-          remote_dir: ./home/hebale/public/apps/blind-chat
-          method: sftp
-          port: 21
+          FTP_SERVER: ${{ secrets.FTP_HOST }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          LOCAL_DIR: ./public/
+          REMOTE_DIR: ./home/hebale/public/apps/blind-chat
+          METHOD: sftp
