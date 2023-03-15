@@ -22,10 +22,11 @@ jobs:
       
       - name: Deploy
         uses: SamKirkland/FTP-Deploy-Action@2.0.0
-        with:
+        env:
           FTP_SERVER: ${{ secrets.FTP_HOST }}
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          METHOD: sftp
+          PORT: 21
           LOCAL_DIR: ./public/
           REMOTE_DIR: ./home/hebale/public/apps/blind-chat
-          METHOD: sftp
