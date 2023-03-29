@@ -1,0 +1,32 @@
+name: sftp-deploy
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      
+      - name: Nodejs 
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16.x'
+      
+      - name: Build
+        run: |
+          npm install
+          npm run build --if-present      
+      
+      - name: Deploy
+        uses: SamKirkland/FTP-Deploy-Action@2.0.0
+        env:
+          FTP_SERVER: ${{ secrets.FTP_HOST }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          METHOD: sftp
+          PORT: 21
+          LOCAL_DIR: ./public/
+          REMOTE_DIR: ./home/hebale/public/apps/blind-chat
