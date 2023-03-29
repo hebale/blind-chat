@@ -181,7 +181,7 @@
 		{/key}
 
 		{#if expire}
-			<span>의견 수집이 종료되었습니다.</span>
+			<span>의견 수집이 종료되었습니다</span>
 		{/if}
 
 		<section class="{expire ? "expire" : ""}" >
