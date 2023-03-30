@@ -1,4 +1,4 @@
-name: sftp-deploy
+name: ftps-deploy
 on:
   push:
     branches:
