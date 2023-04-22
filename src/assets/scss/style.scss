@@ -1,0 +1,100 @@
+// var color code
+$darkColor: #111;
+$lightColor: #fff;
+$darkBgColor: #111;
+$pointColor: #f19a9a;
+$pointBgColor: #dd2929;
+$mainBgColor: #ccc;
+$greyColor: #555;
+$editDark: #111;
+$editLight: #fff;
+
+@font-face {
+  font-family: 'Pretendard Variable';
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
+  src: local('Pretendard Variable'), url('./PretendardVariable.woff2') format('woff2-variations');
+}
+
+#app {
+  position: relative;
+  margin: 0 auto;
+  max-width: 640px;
+  height: 100%;
+  border-left: 1px solid $darkColor;
+  border-right: 1px solid $darkColor;
+  font-family: 'Pretendard Variable';
+  &.onload {
+    header {
+      height: 50px;
+      > a {
+        display: inline-block;
+      }
+      > button {
+        display: inline-block;
+      }
+      h1 {
+        position: relative;
+        font-size: 15px;
+        letter-spacing: 0.05em;
+        user-select: none;
+        -webkit-user-select: none;
+        &:before {
+          display: inline-block;
+        }
+        &:after {
+          display: none;
+          animation: none;
+        }
+        button {
+          display: inline-block;
+          padding: 0 12px 0 0;
+          cursor: pointer;
+          &:before,
+          &:after {
+            display: inline-block;
+          }
+        }
+      }
+      label {
+        display: inline-block;
+      }
+    }
+  }
+  &.admin {
+    main ul {
+      & > li.blind:not(.edit) h2 {
+        background-image: none !important;
+        color: $darkColor !important;
+      }
+    }
+  }
+  * {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+}
+
+@keyframes loading {
+  0% {
+    content: "...";
+  }
+  25% {
+    content: "";
+  }
+  50% {
+    content: ".";
+  }
+  75% {      
+    content: "..";
+  }
+  100% {
+    content: "...";
+  }
+}
+
+@import './import/header.scss';
+@import './import/comment.scss';
+@import './import/input.scss';
+@import './import/modal.scss';

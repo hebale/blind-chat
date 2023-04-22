@@ -1,14 +1,10 @@
 # blind-chat
+- 익명성 의견 수집기
+- 채팅 UI디자인
+- 관리자 채팅 블라인드 기능 
 
-blind chatting web
+### front
+svelte
 
-### client
-svelte(^3.0.0) with rollup(^2.3.4)
-
-npm run dev
-npm run build
-
-
-### server
-
+### db
 google apps script

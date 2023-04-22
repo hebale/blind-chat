@@ -1,4 +1,5 @@
 <script>
+  import { afterUpdate } from "svelte";
   import { get } from "svelte/store";
 
   import * as Core from '../assets/js/core';
@@ -16,12 +17,21 @@
   EDIT.subscribe(bool => editMode = bool);
   EDITDATA.subscribe((obj) => editData = obj);
   
-  let formData = {
+  $: formData = {
     TAG: null,
-		SORT: 'ETC',
+		SORT: '',
 		CONTENTS: '',
 	};
-  
+
+  afterUpdate(() => {
+    if(
+      sorts.length > 0 &&
+      sorts[tagIndex].indexOf(formData.SORT) < 0
+    ) {
+      formData.SORT = sorts[tagIndex][0];
+    };
+  });
+
   const onClickSendComment = () => {
     if(!formData.CONTENTS) return;
     
@@ -31,13 +41,17 @@
       TAG: filter.TAG,
       TIMESTAMP: Core.dateSet() 
     };
-
-    Core.postComments(get(URL), comment, () =>
-      Core.getComments(get(URL), (data) => {
+      
+    (async () => {
+      const status = await Core.postComments(get(URL), comment);
+        
+      if(status === 200) {
+        const data = await Core.getComments(get(URL));
+        
         COMMENTS.set(data.list);
         SORTS.set(data.sort);
-      })
-    );
+      }
+    })();
 
     comment.UUID = get(UUID);
     comment.PENDING = "Y";
@@ -52,13 +66,17 @@
 
   const onClickEditComment = () => {
     let params = Object.assign(editData, { METHOD: "edit" });
+    
+    (async () => {
+      const status = await Core.postComments(get(URL), params);
 
-    Core.postComments(get(URL), params, () =>
-      Core.getComments(get(URL), (data) => {
+      if(status === 200) {
+        const data = await Core.getComments(get(URL));
+        
         COMMENTS.set(data.list);
         SORTS.set(data.sort); 
-      })
-    );
+      }
+    })();
 
     comments = comments.map(el => {
       if(el.KEY === editData.KEY){
@@ -87,12 +105,16 @@
   const onClickDeleteComment = () => {
     let params = { METHOD: "delete", KEY: editData.KEY };
 
-    Core.postComments(get(URL), params, () =>
-      Core.getComments(get(URL), (data) => {
+    (async () => {
+      const status = await Core.postComments(get(URL), params);
+
+      if(status === 200) {
+        const data = await Core.getComments(get(URL));
+
         COMMENTS.set(data.list);
         SORTS.set(data.sort);
-      })
-    );
+      }
+    })();
 
     comments = comments.filter(el => el.KEY !== editData.KEY);
     EDIT.set(false);
@@ -112,14 +134,13 @@
     }).length
   };
 
-  const convetLineFeed = value => {
+  const convertLineFeed = value => {
     if(editMode){
       EDITDATA.update((obj) => ({...obj, CONTETNS: value }));
     }else{
       formData.CONTENTS = value;
     }
   };
-
 </script>
 
 <form class="{editMode ? "edit" : ""}">
@@ -127,29 +148,27 @@
     {#if sorts.length > 0}
       {#key sorts}
         {#each sorts[tagIndex] as sort, i}
-          {#if sort !== "관리자"}
-            <label>
-              {#key editData}
-                {#if editData.KEY}
-                  <input
-                    type="radio"
-                    value={sort}
-                    bind:group={editData.SORT}
-                  >
-                {:else}
-                  <input
-                    type="radio"
-                    value={sort}
-                    bind:group={formData.SORT}
-                  >
-                {/if}
-              {/key}
-              {sort}
-              {#key comments}
-                <span>{countComments(sort)}</span>
-              {/key}
-            </label>
-          {/if}
+          <label>
+            {#key editData}
+              {#if editData.KEY}
+                <input
+                  type="radio"
+                  value={sort}
+                  bind:group={editData.SORT}
+                >
+              {:else}
+                <input
+                  type="radio"
+                  value={sort}
+                  bind:group={formData.SORT}
+                >
+              {/if}
+            {/key}
+            {sort}
+            {#key comments}
+              <span>{countComments(sort)}</span>
+            {/key}
+          </label>
         {/each}
       {/key}
     {/if}
@@ -158,7 +177,7 @@
     {#if editMode}
       <textarea
         rows="3"
-        on:change={(event) => convetLineFeed(event.target.value)}
+        on:change={(event) => convertLineFeed(event.target.value)}
         bind:value={editData.CONTENTS}
       />
       <div>
@@ -168,7 +187,7 @@
     {:else}
       <textarea
         rows="3"
-        on:change={(event) => convetLineFeed(event.target.value)}
+        on:change={(event) => convertLineFeed(event.target.value)}
         bind:value={formData.CONTENTS}
       />
       <button type="button" on:click={onClickSendComment}>전송</button>

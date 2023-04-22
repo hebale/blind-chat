@@ -24,26 +24,25 @@ export function setCookie(cookieName, value, expire) {
   document.cookie = `${cookieName}=${escape(value)};expires=${date.toUTCString()};path=/`;
 };
 
-export function getComments(url, callback) {
-  fetch(url, { method: "GET" })
-    .then((response) => response.json())
-    .then((data) => {
-      if(callback && typeof callback === "function") callback(data)
-    });
+export async function getComments(url) {
+  const response = await fetch(url, { method: 'GET' });
+  const data = response.json();
+
+  return data;
 };
 
-export function postComments(url, params, callback) {
-  let queries = Object.keys(params).map(el => {
-      return typeof params[el] === "number"
-        ? `${el}=${params[el]}`
-        : `${el}=${params[el].replace(/\n/g, "<br>").replace(/&/g, "AND")}`
-    }).join("&");
+export async function postComments(url, params) {
+  const queries = Object.keys(params).map(el => {
+    return typeof params[el] === "number"
+      ? `${el}=${params[el]}`
+      : `${el}=${params[el].replace(/\n/g, "<br>").replace(/&/g, "AND")}`
+  }).join("&");
 
-  fetch(url + `&${queries}`, { method: "POST"})
-  .then((response) => {
-    if(response.status === 200) callback(response);
-  })
-};
+  const response = await fetch(url + `&${queries}`, { method: "POST"});
+  const data = response.json();
+
+  return data;
+}
 
 export function dateSet(dataString){
   let date = dataString ? new Date(dataString) : new Date();
@@ -57,6 +56,5 @@ export function dateSet(dataString){
       minutes = String(koDate.getMinutes()).length === 1 ? "0"+String(koDate.getMinutes()) : String(koDate.getMinutes()),
       seconds = String(koDate.getSeconds()).length === 1 ? "0"+String(koDate.getSeconds()) : String(koDate.getSeconds());
 
-  // return year+"-"+month+"-"+days+" "+hours+":"+minutes+":"+seconds;
   return `${year.substring(2)}.${month}.${days} ${hours}:${minutes}`
 }

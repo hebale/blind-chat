@@ -1,0 +1,137 @@
+#app {
+  main {
+    section {
+      position: relative;
+      margin-top: auto;
+      width: 100%;
+      max-width: 640px;
+      border-top: 1px solid $darkColor;
+      box-sizing: border-box;
+      justify-content: space-between;
+      &.expire {
+        display: none;
+      }
+      > button {
+        position: absolute;
+        top: -50px;
+        left: 50%;
+        padding: 0 16px;
+        height: 36px;
+        border-radius: 20px;
+        font-size: 12px;
+        color: $lightColor;
+        background: $darkBgColor;
+        transform: translateX(-50%);
+      }
+      form {
+        padding: 6px 16px 20px;
+        background: $mainBgColor;
+        > div {
+          &:first-child {
+            padding-bottom: 8px;
+            margin: 0 0 0 -16px;
+            label {
+              display: inline-flex;
+              margin: 0 0 0 16px;
+              padding: 6px 0;
+              font-size: 14px;
+              font-weight: 550;
+              align-items: center;
+              input {
+                display: inline-block;
+                padding: 0;
+                margin: 0 5px 0 0;
+                width: 10px;
+                height: 10px;
+                border: 1px solid $darkColor;
+                border-radius: 50%;
+                appearance: none;
+                background: #fff;
+                transition: background 250ms;
+                &:checked {
+                  background: $darkColor;
+                }
+              }
+              span {
+                display: inline-block;
+                margin-left: 2px;
+                line-height: 20px;
+                font-size: 13px;
+                font-weight: 500;
+                &:before,
+                &:after {
+                  display: inline-block;
+                  font-weight: 200;
+                  transform: translateY(-1px);
+                }
+                &:before {
+                  content: "(";
+                  margin-right: 1px;
+                }
+                &:after {
+                  content: ")";
+                  margin-left: 1px;
+                }
+              }
+            }
+          }
+          &:last-child {
+            display: flex;
+            gap: 8px;
+          }
+
+          div:last-child {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            button:last-child {
+              color: $lightColor;
+              background: $greyColor;
+            }
+          }
+        }
+        textarea {
+          padding: 6px 12px;
+          margin: 0;
+          width: 100%;
+          min-height: 72px;
+          border: 1px solid #111;
+          border-radius: 0;
+          font-family: 'Pretendard Variable';
+          resize: none;
+          outline: none;
+        }
+        button {
+          padding: 0 20px;
+          margin: 0;
+          min-height: 32px;
+          min-width: 80px;
+          font-weight: 500;
+          border: 1px solid $darkColor;
+          border-radius: 2px;
+          background: $lightColor;
+        }
+        &.edit {
+          background: $editDark;
+          > div {
+            &:first-child {
+              label {
+                color: $editLight;
+                input {
+                  color: $editLight;
+                  background: $greyColor;
+                  &:checked {
+                    background: $editLight;
+                  }
+                }
+                span {
+                  color: $editLight;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

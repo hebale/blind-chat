@@ -1,18 +1,20 @@
 <script>
   import { get } from "svelte/store";
   
-  import { UUID, EDITDATA, EDIT } from '../assets/js/store';
+  import * as Core from '../assets/js/core';
+  import { URL, UUID, EDITDATA, EDIT } from '../assets/js/store';
   
   export let comments;
+  export let admin;
 
   let editData;
   let newsComment;
 
-  $: news = true;
+  $: news = false; // temp 
 
   EDITDATA.subscribe((obj) => editData = obj);
 
-  const onChangeMode = (key) => {
+  const changeMode = (key) => {
     const selected = comments.filter(el => el.KEY === key)[0];
 
     if(get(EDIT)){
@@ -30,17 +32,25 @@
         CONTENTS: selected.CONTENTS.replace(/<br>/g, "\n"),
       }));
     }
+  }; 
+
+  const changeBlind = async (event, key) => {
+    const flag = event.target.checked ? "Y" : "N";
+    const status = await Core.postComments(get(URL), { KEY: key, BLIND: flag });
+
+    if(status !== 200) {
+      console.warn('not changed') 
+    }
   };
 
-
   /* new comment check script */
-
   const reloadComments = () => {
-		newsComment = setInterval(() => {
-			Core.getComments(get(URL), (data) => {
-				if(data.list.length > comments.length) news = true;
-				COMMENTS.set(data.list);
-			})
+		newsComment = setInterval( async () => {
+			const data = await Core.getComments(get(URL));
+      
+      if(data.list.length > comments.length) news = true;
+      COMMENTS.set(data.list);
+
 		}, 60000);
 	};
 	
@@ -68,18 +78,32 @@
   {#key editData }
     {#each comments as comment, i}
       <li
-        class="{comment.UUID === get(UUID) ? "author" : "blind" } {comment.KEY === get(EDITDATA).KEY ? "edit" : "" }"
+        class="{comment.UUID === get(UUID) ? "author" : "other" } {comment.BLIND === "Y"? "blind" : "" } {comment.KEY === get(EDITDATA).KEY ? "edit" : "" }"
         data-key="{comment.KEY}"
         data-uuid="{comment.UUID}"
       >
         <div>
           <p>{comment.SORT}</p>
-          <h2>{@html comment.CONTENTS}</h2> 
+          <h2>{@html comment.CONTENTS}</h2>
           <span>{comment.TIMESTAMP}</span>
-          {#if !comment.PENDING && comment.UUID === get(UUID)  }
-            <button type="button" on:click={() => onChangeMode(comment.KEY)}>옵션</button>
+          {#if !comment.PENDING && comment.UUID === get(UUID)}
+            <button type="button" on:click={() => changeMode(comment.KEY)}>옵션</button>
+          {:else if comment.PENDING && comment.UUID === get(UUID)}
+            <i>loading</i>
           {/if}
         </div>
+  
+        {#if admin}
+          <label>
+            <input 
+              type="checkbox"
+              checked={comment.BLIND === 'Y'}
+              on:change={(event) => changeBlind(event, comment.KEY)}
+            />
+            <span>블라인드</span>
+            <i></i>
+          </label>
+        {/if}
       </li>
     {/each}
   {/key}

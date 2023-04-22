@@ -6,6 +6,7 @@
 
 	import Comments from './component/Comments.svelte';
 	import InputForm from './component/InputForm.svelte';
+	import Modal from './component/Modal.svelte';
 
 	let mode = "basic";
 	let tagCount = 0;
@@ -13,9 +14,10 @@
 
 	$: title = "TITLE";
 	$: onload = false;
+	$: modal = false;
 	$: admin = false;
 	$: news = false;
-	$: sorts = [];
+	$: sorts = []; 
 
 	COMMENTS.subscribe((arr) => {
 		comments = arr.map(el => {
@@ -34,7 +36,9 @@
 	const vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty('--vh', `${vh}px`);
 
-	Core.getComments(get(URL), (data) => {
+	(async () => {
+		const data = await Core.getComments(get(URL));
+
 		COMMENTS.set(data.list);
 		TAGS.set(data.tag);
 		SORTS.set(data.sort);
@@ -59,43 +63,30 @@
 		setTimeout(() => {
 			Core.scrollAnimation("main ul", "main ul > li:last-child");
 		}, 150);
-	});
-
+	})()
 
 	const appHeight = () => {
     const doc = document.documentElement
 			doc.style.setProperty('--app-height', `${window.innerHeight}px`)
 	};
 	
-	const adminCommand = (() => {
-		let timer, count;
-		
-		return {
-			countUp: () => { 
-				clearTimeout(timer);
-				count += 1;
-				
-				if(count >= 10){
-					count = 0;
-					return changeAdmin()
-				};
-				timer = setTimeout(() => {
-					count = 0
-				}, 250);
-			}
-		};
-	})();
-
-	const changeAdmin = () => {
+	let changeAdmin = ({ flag }) => async () => {
+		modal = false;
 		onload = false;
-		Core.postComments(get(URL), { ADMIN: "Y" }, () => {
-			Core.getComments(get(URL), (data) => {
-				COMMENTS.set(data.list);
 
-				admin = data.admin === "Y";
-				onload = true;
-			});
-		})
+		const status = await Core.postComments(get(URL), { ADMIN: flag });
+
+		if(status === 200) {
+			const data = await Core.getComments(get(URL));
+
+			COMMENTS.set(data.list);
+			admin = data.admin === 'Y';
+			onload = true;
+		};
+	};
+
+	const openModal = () => { 
+		modal = true;
 	};
 
 	const changeTag = () => {
@@ -132,58 +123,52 @@
 			return obj;
 		});
 	};
-
 </script>
 
 <svelte:window on:resize={appHeight}/>
 
 <div id="app" class="{onload ? "onload" : ""} {admin ? 'admin' : ''}">
 	<header>
-		<a href="http://digitest.hankookilbo.com/others/workshop/">F5</a>
+		<button type="button" class={admin && 'active'} on:click={openModal}>admin</button>
 		<h1>
 			<button type="button" on:click={changeTag}>{title}</button>
 		</h1>
-		{#key admin}
-			<label>
-				<input
-					type="checkbox"
-					on:click={admin ? null : adminCommand.countUp() }
-					on:change={mineComment}
-				>
-				나의 글
-			</label>
-		{/key}
-		{#key admin}
-			{#if admin}
-				<nav>
-					{#each sorts[tagCount] as sort, i}
-						{#if sort !== "관리자"}
-							<label>
-								<input
-									type="checkbox"
-									value={sort}
-									on:change={event => changeFilter(event, i)}
-									checked={filter.SORT[tagCount][i]}
-								>
-								{sort}
-							</label>
-						{/if}
-					{/each}
-				</nav>
-			{/if}
-		{/key}
+		<label>
+			<input
+				type="checkbox"
+				on:change={mineComment}
+			>
+			나의 글
+		</label>
+		{#if sorts.length > 0}
+			<nav>
+				{#each sorts[tagCount] as sort, i}
+					<label>
+						<input
+							type="checkbox"
+							value={sort}
+							on:change={event => changeFilter(event, i)}
+							checked={filter.SORT[tagCount][i]}
+						>
+						{sort}
+					</label>
+				{/each}
+			</nav>
+		{/if}
 	</header>
 	<main>
 		{#key filter}
-			<Comments comments={commentSort(comments)} />
+			<Comments bind:admin={admin} comments={commentSort(comments)} />
 		{/key}
 
 		{#if expire}
 			<span>의견 수집이 종료되었습니다</span>
+		{:else}
+			<section>
+				<InputForm bind:comments={comments} bind:tagIndex={tagCount} bind:sorts={sorts} />
+			</section>
 		{/if}
-
-		<section class="{expire ? "expire" : ""}" >
-			<InputForm bind:comments={comments} bind:tagIndex={tagCount} bind:sorts={sorts} />
-		</section>
 	</main>
+
+	<Modal bind:state={modal} bind:admin={admin} bind:confirm={changeAdmin} />
 </div>
