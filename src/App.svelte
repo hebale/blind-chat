@@ -33,8 +33,15 @@
 	// init
 	if(!Core.getCookie("uuid")) Core.setCookie("uuid", Core.uuidv4(), 30);
 
-	const vh = window.innerHeight * 0.01;
-  document.documentElement.style.setProperty('--vh', `${vh}px`);
+	
+	const setVh = () => {
+		const vh = window.innerHeight * 0.01;
+		document.documentElement.style.setProperty('--vh', `${vh}px`);
+	};
+
+	window.addEventListener('resize', setVh);
+	
+
 
 	(async () => {
 		const data = await Core.getComments(get(URL));
@@ -58,17 +65,18 @@
 		title = tags[tagCount];
 		onload = true;
 
-		appHeight();
+		// appHeight();
+		setVh();
 		
 		setTimeout(() => {
 			Core.scrollAnimation("main ul", "main ul > li:last-child");
 		}, 150);
 	})()
 
-	const appHeight = () => {
-    const doc = document.documentElement
-			doc.style.setProperty('--app-height', `${window.innerHeight}px`)
-	};
+	// const appHeight = () => {
+  //   const doc = document.documentElement
+	// 		doc.style.setProperty('--app-height', `${window.innerHeight}px`)
+	// };
 	
 	let changeAdmin = ({ flag }) => async () => {
 		modal = false;

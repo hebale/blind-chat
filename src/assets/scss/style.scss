@@ -9,6 +9,17 @@ $greyColor: #555;
 $editDark: #111;
 $editLight: #fff;
 
+:root {
+  --vh: 100%;
+}
+body,
+html {
+  height: 100vh;
+  height: var(--vh);
+}
+
+
+
 @font-face {
   font-family: 'Pretendard Variable';
   font-weight: 45 920;
