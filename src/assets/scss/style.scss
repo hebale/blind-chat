@@ -15,10 +15,8 @@ $editLight: #fff;
 body,
 html {
   height: 100vh;
-  height: var(--vh);
+  height: calc(var(--vh, 1vh) * 100);
 }
-
-
 
 @font-face {
   font-family: 'Pretendard Variable';

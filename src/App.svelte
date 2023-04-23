@@ -133,7 +133,7 @@
 	};
 </script>
 
-<svelte:window on:resize={appHeight}/>
+<svelte:window on:resize={setVh}/>
 
 <div id="app" class="{onload ? "onload" : ""} {admin ? 'admin' : ''}">
 	<header>

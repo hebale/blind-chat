@@ -1,3 +1,13 @@
+:root {
+  --vh: 100%;
+}
+
+body,
+html {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+}
+
 @font-face {
   font-family: "Pretendard Variable";
   font-weight: 45 920;

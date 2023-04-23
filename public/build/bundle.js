@@ -2817,12 +2817,12 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[28] = list[i];
-    	child_ctx[30] = i;
+    	child_ctx[27] = list[i];
+    	child_ctx[29] = i;
     	return child_ctx;
     }
 
-    // (143:2) {#if sorts.length > 0}
+    // (151:2) {#if sorts.length > 0}
     function create_if_block_1(ctx) {
     	let nav;
     	let each_value = /*sorts*/ ctx[5][/*tagCount*/ ctx[0]];
@@ -2841,7 +2841,7 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			add_location(nav, file, 143, 3, 3484);
+    			add_location(nav, file, 151, 3, 3583);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, nav, anchor);
@@ -2887,28 +2887,28 @@ var app = (function () {
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(143:2) {#if sorts.length > 0}",
+    		source: "(151:2) {#if sorts.length > 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (145:4) {#each sorts[tagCount] as sort, i}
+    // (153:4) {#each sorts[tagCount] as sort, i}
     function create_each_block(ctx) {
     	let label;
     	let input;
     	let input_value_value;
     	let input_checked_value;
     	let t0;
-    	let t1_value = /*sort*/ ctx[28] + "";
+    	let t1_value = /*sort*/ ctx[27] + "";
     	let t1;
     	let t2;
     	let mounted;
     	let dispose;
 
     	function change_handler(...args) {
-    		return /*change_handler*/ ctx[16](/*i*/ ctx[30], ...args);
+    		return /*change_handler*/ ctx[16](/*i*/ ctx[29], ...args);
     	}
 
     	const block = {
@@ -2919,10 +2919,10 @@ var app = (function () {
     			t1 = text(t1_value);
     			t2 = space();
     			attr_dev(input, "type", "checkbox");
-    			input.value = input_value_value = /*sort*/ ctx[28];
-    			input.checked = input_checked_value = /*filter*/ ctx[2].SORT[/*tagCount*/ ctx[0]][/*i*/ ctx[30]];
-    			add_location(input, file, 146, 6, 3548);
-    			add_location(label, file, 145, 5, 3534);
+    			input.value = input_value_value = /*sort*/ ctx[27];
+    			input.checked = input_checked_value = /*filter*/ ctx[2].SORT[/*tagCount*/ ctx[0]][/*i*/ ctx[29]];
+    			add_location(input, file, 154, 6, 3647);
+    			add_location(label, file, 153, 5, 3633);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, label, anchor);
@@ -2939,15 +2939,15 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty & /*sorts, tagCount*/ 33 && input_value_value !== (input_value_value = /*sort*/ ctx[28])) {
+    			if (dirty & /*sorts, tagCount*/ 33 && input_value_value !== (input_value_value = /*sort*/ ctx[27])) {
     				prop_dev(input, "value", input_value_value);
     			}
 
-    			if (dirty & /*filter, tagCount*/ 5 && input_checked_value !== (input_checked_value = /*filter*/ ctx[2].SORT[/*tagCount*/ ctx[0]][/*i*/ ctx[30]])) {
+    			if (dirty & /*filter, tagCount*/ 5 && input_checked_value !== (input_checked_value = /*filter*/ ctx[2].SORT[/*tagCount*/ ctx[0]][/*i*/ ctx[29]])) {
     				prop_dev(input, "checked", input_checked_value);
     			}
 
-    			if (dirty & /*sorts, tagCount*/ 33 && t1_value !== (t1_value = /*sort*/ ctx[28] + "")) set_data_dev(t1, t1_value);
+    			if (dirty & /*sorts, tagCount*/ 33 && t1_value !== (t1_value = /*sort*/ ctx[27] + "")) set_data_dev(t1, t1_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(label);
@@ -2960,14 +2960,14 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(145:4) {#each sorts[tagCount] as sort, i}",
+    		source: "(153:4) {#each sorts[tagCount] as sort, i}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (160:2) {#key filter}
+    // (168:2) {#key filter}
     function create_key_block(ctx) {
     	let comments_1;
     	let updating_admin;
@@ -3026,14 +3026,14 @@ var app = (function () {
     		block,
     		id: create_key_block.name,
     		type: "key",
-    		source: "(160:2) {#key filter}",
+    		source: "(168:2) {#key filter}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (166:2) {:else}
+    // (174:2) {:else}
     function create_else_block(ctx) {
     	let section;
     	let inputform;
@@ -3077,7 +3077,7 @@ var app = (function () {
     		c: function create() {
     			section = element("section");
     			create_component(inputform.$$.fragment);
-    			add_location(section, file, 166, 3, 3928);
+    			add_location(section, file, 174, 3, 4027);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, section, anchor);
@@ -3126,14 +3126,14 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(166:2) {:else}",
+    		source: "(174:2) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (164:2) {#if expire}
+    // (172:2) {#if expire}
     function create_if_block(ctx) {
     	let span;
 
@@ -3141,7 +3141,7 @@ var app = (function () {
     		c: function create() {
     			span = element("span");
     			span.textContent = "의견 수집이 종료되었습니다";
-    			add_location(span, file, 164, 3, 3887);
+    			add_location(span, file, 172, 3, 3986);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -3158,7 +3158,7 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(164:2) {#if expire}",
+    		source: "(172:2) {#if expire}",
     		ctx
     	});
 
@@ -3264,18 +3264,18 @@ var app = (function () {
     			create_component(modal_1.$$.fragment);
     			attr_dev(button0, "type", "button");
     			attr_dev(button0, "class", button0_class_value = /*admin*/ ctx[9] && 'active');
-    			add_location(button0, file, 131, 2, 3202);
+    			add_location(button0, file, 139, 2, 3301);
     			attr_dev(button1, "type", "button");
-    			add_location(button1, file, 133, 3, 3296);
-    			add_location(h1, file, 132, 2, 3288);
+    			add_location(button1, file, 141, 3, 3395);
+    			add_location(h1, file, 140, 2, 3387);
     			attr_dev(input, "type", "checkbox");
-    			add_location(input, file, 136, 3, 3377);
-    			add_location(label, file, 135, 2, 3366);
-    			add_location(header, file, 130, 1, 3191);
-    			add_location(main, file, 158, 1, 3768);
+    			add_location(input, file, 144, 3, 3476);
+    			add_location(label, file, 143, 2, 3465);
+    			add_location(header, file, 138, 1, 3290);
+    			add_location(main, file, 166, 1, 3867);
     			attr_dev(div, "id", "app");
     			attr_dev(div, "class", div_class_value = "" + ((/*onload*/ ctx[8] ? "onload" : "") + " " + (/*admin*/ ctx[9] ? 'admin' : '')));
-    			add_location(div, file, 129, 0, 3119);
+    			add_location(div, file, 137, 0, 3218);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -3306,7 +3306,7 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(window_1, "resize", /*appHeight*/ ctx[10], false, false, false, false),
+    					listen_dev(window_1, "resize", /*setVh*/ ctx[10], false, false, false, false),
     					listen_dev(button0, "click", /*openModal*/ ctx[11], false, false, false, false),
     					listen_dev(button1, "click", /*changeTag*/ ctx[12], false, false, false, false),
     					listen_dev(input, "change", /*mineComment*/ ctx[14], false, false, false, false)
@@ -3462,8 +3462,12 @@ var app = (function () {
     	// init
     	if (!getCookie("uuid")) setCookie("uuid", uuidv4(), 30);
 
-    	const vh = window.innerHeight * 0.01;
-    	document.documentElement.style.setProperty('--vh', `${vh}px`);
+    	const setVh = () => {
+    		const vh = window.innerHeight * 0.01;
+    		document.documentElement.style.setProperty('--vh', `${vh}px`);
+    	};
+
+    	window.addEventListener('resize', setVh);
 
     	(async () => {
     		const data = await getComments(get_store_value(URL));
@@ -3486,7 +3490,9 @@ var app = (function () {
     		$$invalidate(9, admin = data.admin === "Y");
     		$$invalidate(6, title = tags[tagCount]);
     		$$invalidate(8, onload = true);
-    		appHeight();
+
+    		// appHeight();
+    		setVh();
 
     		setTimeout(
     			() => {
@@ -3496,11 +3502,10 @@ var app = (function () {
     		);
     	})();
 
-    	const appHeight = () => {
-    		const doc = document.documentElement;
-    		doc.style.setProperty('--app-height', `${window.innerHeight}px`);
-    	};
-
+    	// const appHeight = () => {
+    	//   const doc = document.documentElement
+    	// 		doc.style.setProperty('--app-height', `${window.innerHeight}px`)
+    	// };
     	let changeAdmin = ({ flag }) => async () => {
     		$$invalidate(7, modal = false);
     		$$invalidate(8, onload = false);
@@ -3616,8 +3621,7 @@ var app = (function () {
     		filter,
     		tags,
     		expire,
-    		vh,
-    		appHeight,
+    		setVh,
     		changeAdmin,
     		openModal,
     		changeTag,
@@ -3670,7 +3674,7 @@ var app = (function () {
     		modal,
     		onload,
     		admin,
-    		appHeight,
+    		setVh,
     		openModal,
     		changeTag,
     		commentSort,
